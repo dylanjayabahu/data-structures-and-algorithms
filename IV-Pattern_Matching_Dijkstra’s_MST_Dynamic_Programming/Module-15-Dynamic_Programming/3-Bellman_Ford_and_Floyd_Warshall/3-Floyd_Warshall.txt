@@ -1,0 +1,89 @@
+Floyd Warshall solves the all-pairs shortest path problem   
+    Dijkstras and Bellman Ford solve the single source shortest path problem
+
+
+This problem would take Omega(|V|^2) time and space just to write down the answer - let alone compute it 
+It is a computationally expensive task relative to what we've seen before
+
+
+Uses an adjacency matrix representation of the graph 
+Principle: any shortest path can be written as the sum of two shortest paths b/w an intermediate node
+    ^ the shortest path AC passing through B is AB + AC 
+
+    works even if the shortest path is a single edge; 
+    sum the path from u to u (length 0), and then from u to v 
+    u is both the start node and intermediate node in this case 
+
+
+Algo Overview:
+    we define a dist matrix to store the shortest path b/w two vertices found so far 
+    at the end the dist matrix will have the solution 
+
+    iterate through every vertex and find the shortest paths passing through that vertex 
+        we update if that is smaller than the existing one 
+
+
+
+
+
+def floydWarshall(adjMatrix):
+    Initialize dist, a |V| x |V| matrix initialized to take the values of adjMatrix.
+    
+        for each vertex vj:
+        
+            for each vertex vi:
+                for each vertex vk:
+                    if dist[vi][vk] > dist[vi][vj] + dist[vj][vk]
+                        dist[vi][vk] = dist[vi][vj] + dist[vj][vk]
+
+        return dist
+
+
+This is O(|V|^3) time complexity and O(|V|^2) space
+    we go through the dist matrix, O(|V|^2), O(|V|) times 
+    the dist matrix takes O(|V|^2) extra space
+
+
+
+Negative Cycles;
+    if a negative cycles exists, there will be a negative value for the shortes path from i to i in the dist matrix 
+
+    we can check if there are negative cycles by checking every value on the diagonal of the matrix (x, x)
+        these values should all be 0. If they are less than 0 there is a negative cycle 
+
+
+
+
+
+
+All-pairs shortest path options:
+    1. repeat dijkstra on all vertices  
+        single dijkstra is O of: (|V| + |E|)log|V|
+        repeated dijsktra is O of: (|V|+|E|) * |V|log|V|
+
+        when sparse, |E| = O(|V|)
+            repeated dijkstra becomes O of: (|V|+|V|) * |V|log|V|
+                                     =O of: |V| * |V|log|V| = |V|^2 * log|V|
+        
+        when dense, |E| = theta(|V|^2)
+            repeated dijkstra becomes O of: (|V| + |V|^2) * |V|log|V|
+                                    = O of: |V|^2 * |V|log|V| = |V|^3 log|V|
+
+
+    2. repeat bellman ford on all vertices 
+        single bellman ford is O of: |V||E|
+        repeated bellman ford is O of: |V| * |V||E| = |V|^2 |E|
+
+        when sparse, |E| = O(|V|)
+            repeated bf becomes O of  |V|^2 * |V| = O(|V|^3)
+
+
+        when dense, |E| = Theta(|V|^2)
+            repeated bf becomes O of |V|^2 * |V|^2 = O(|V|^4)
+
+    
+    3. floyd_warshall
+        is O of: |V|^3 
+
+        when sparse, O of |V|^3
+        when dense, O of |V|^3

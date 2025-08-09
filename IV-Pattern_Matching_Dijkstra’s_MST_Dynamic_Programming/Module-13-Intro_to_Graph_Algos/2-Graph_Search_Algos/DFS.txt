@@ -1,0 +1,84 @@
+Depth first search: explores a branch as far as it can before moving back up to check other branches
+    Replies on stack of vertices
+
+    Implemented recursively or non recursively
+
+    Start at a vertex
+    Choose an edge and traverse
+    Keep going until no edges to traverse; then back up and repeat
+    Repeat until all vertices have been reached. 
+
+
+    Kind of like the pre/in/post order traversals of a BST 
+
+
+def Non-recursive DFS(Graph, startNode):
+    stack = [startNode]
+    visistedSet = {}
+
+    while (stack is nonempty){
+        node curr = stack.pop();
+
+        if curr not in visitedSet:
+            for each next adjacent to curr:
+                if next not in visitedSet: stack.push(next); 
+            
+            visitedSet.add(curr);
+    }
+
+
+//use a wrapper function to start off on startNode. It also initializes visitedset
+def recursiveDFS(graph, curr):
+    visitedSet.add(curr)
+
+    for all next adjacent to curr:
+        if adjacent not in visitedSet:
+            recursiveDFS(graph, next)
+
+
+Note that with recursive DFS we explore branches in the order returned by {for each adjacent to curr}; e.g. alphabetically
+With nonrecursive DFS we explore branches in reverse order returned by {for each adjacent to curr}
+
+
+
+DFS time complexity:
+    O(|V| + |E|), assuming hashsets are efficient O(1)
+     ^ optimal unless we expect to solve problem w/o reading entire input
+
+
+
+DFS applications:
+
+    - Detect if graph is connected; find path from 1 vertex to another 
+        ^ connected if length(visitedSet) == |V| after DFS terminates from a random startNode
+        ^ find path by starting at vertex v and dfs until we reach vertex u 
+    
+    - Detect cycles (and hence see if a graph is a tree)
+        if one of the adjacent nodes has already been visited and it isnt the parent of curr, there is a cycle (works for undirected graphs)
+        if there is a node with a backedge in the adjacent nodes as u DFS, there is a cycle
+
+    - Obtain a spanning tree (spanning tree = graph with minimal number of edges without disconnecting)
+        do a DFS and only retain the edges u traversed
+
+    - Detect if a graph is a bipartite (bipartite = we can partition the vertices into two sets; vertices in the same set have no edges between them)
+        ^ equivalent to 2-coloring the graph 
+
+        assign color 0 to startNODE
+        DFS, switching color each time (assign each neighbour the opposite color)
+        If a neighbour already has a color that conflicts, graph isn't a bipartite
+
+    - Simulate Decisions for AI (e.g. tictactoe, depth-capped chess w/ heuristic, etc.)
+
+    - Topological sorting on Directed Acyclic Graphs (DAG)
+        if u -> v, then u should come before v in the ordering
+
+        Just traverse the DAG starting startNode. 
+        After exploring all branches of a node, add the node to the add node to front of outputList
+        outputList is topologically sorted when DFS is finished 
+
+    - Obtain a meta-graph of strongly connected components in diagraph 
+        clusters of a weakly connected graph that are strongly connected can be be bunched into a single vertex 
+        and make a new graph out of it
+
+    
+    ^ many of these applications can also be done with BFS

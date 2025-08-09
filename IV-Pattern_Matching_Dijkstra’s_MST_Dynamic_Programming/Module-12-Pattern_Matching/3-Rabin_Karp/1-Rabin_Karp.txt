@@ -1,0 +1,60 @@
+Rabin Karm - like the radix sort for pattern matching 
+    Preprocesses both the pattern and text 
+        Preprocess the pattern by hashing the pattern 
+        Prprocess the text by hashing the text[:m]
+
+    Computes a hashcode for the pattern 
+
+    Then computes hashcodes for the substrings in the text 
+        If hashcode matches, check char by char (could have been a collision)
+        If no match, proceed to next substring; update the hash and repeat 
+    
+
+    The hash gest updated n-m times 
+    For linear efficiency, the hash needs to be updated in O(1)
+        If updating hash was O(m), then time complexity would be O(m(n-m)) = O(mn); already as bad as brute force
+    
+
+    For this, we use the rolling hash 
+        Select BASE, usually a large prime 
+
+        rolling hash weights each char by its position in the string 
+        choose a hash funciton h(x) mapping chars to ints 
+        To avoid collisions with anagrams, multiply each hash by BASE^m-index-1
+
+        So, the rolling hash, H(p), is computed as:
+            h(p[o])*BASE^(m-1) + h(p[1])*BASE^(m-2) + ... + h(p[m-2])*BASE^1 + h(p[m-1])*BASE^0
+
+        ^ note the base exponentiation is like a number base system, e.g. decimal
+            start from right and move left, so each time u can just multiply coefficient by base (dont recalculate exponent each time)
+
+
+
+        Now, to update the hash:
+            oldH - h(OldChar)*BASE^(m-1) //subtract the first term; we can pass BASE^(m-1) which was calculated when we made the hash instead of recalculating 
+            
+            then multiply by BASE (to shift everything over 1 to the right; equivalent for making room for 1 more digit in base 10)
+
+            then add h(newChar) * BASE^0
+
+            Overall formula is:
+
+            newH = [ oldH - h(OldChar) * BASE^(m-1) ] * BASE  + h(newChar)
+
+            This is O(1) - all elementary operations, and BASE^m-1 was precalculated; and this works regardless of m 
+
+        
+        ^ this hashing system is called Rabin Fingerprint
+
+        
+
+Efficiency of RK:
+    just as with hashmap, RK efficiency depends on a good hash 
+    also assumes hashing a single character is O(1)
+
+    Worst Case: O(mn) //rubbish hash function degrades to bruteforce 
+    Best Case (all occurences): O(m + n)
+        O(m) to compute initial hash 
+        O(n) to search the text and rolling the hash n times 
+
+    Best Case (first occurence): O(m)

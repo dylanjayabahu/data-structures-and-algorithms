@@ -1,0 +1,25 @@
+Hamiltonian Cycle:
+    a cycle that passes through all nodes 
+
+Euler Circuit:
+    a circuit that passes through all nodes 
+
+
+
+Cycle/Circuit Definition reminder:
+    Path (simple path): a sequence of non-repeated adjacent vertices; a set of edges that connect two vertices
+    Trail (non simple path): a sequence of (possibly repeated) adjacent vertices, but edges still cant repeat
+    Cycle: a path where first and last vertices are adjacent
+    Circuit: a trail where first and last vertices are adjacent 
+
+
+Euler Circuit Problem is in P 
+    if all vertices have an even degree and graph is connected, an Euler Circuit exists 
+    can be checked in O(|V| + |E|)
+
+
+Hamiltonian Cycle Problem is in NP, and is NP complete 
+
+
+
+Another example is that shortest path problem is P, while longest path problem is NP-hard

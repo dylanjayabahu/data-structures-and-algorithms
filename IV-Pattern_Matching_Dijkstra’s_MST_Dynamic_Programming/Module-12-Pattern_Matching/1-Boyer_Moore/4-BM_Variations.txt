@@ -1,0 +1,74 @@
+1. Original BM w/ Suffix RUle 
+    On top of bad char rule, good suffix is used in the OG BM algo 
+    Both rules give an amount to shift; we shift by the larger
+
+    Good suffix improves best case to O(m + n) (linear) (same worst case tho)
+        generally not that helpful in practice 
+
+    Bad character rule (assume bad car at index j) only relies on the mismatched char to determine the shift
+    It doesnt account that all other chars to to the right of j are correct 
+    
+    let textsub be the substring of text currently alligned with the pattern
+
+    textsub[j] is the mismatched char (mismatched with pattern[j])
+
+    textsub[j+1:] is the part of the text that the window matched (a common suffix of textsub and pattern)
+    let machtedSuffix = textsub[j+1:] //also equal to pattern[j+1:]
+
+    
+    check if matchedSuffix occurs elsewhere in the pattern:
+
+    if it does occur elsewhere in pattern: //case 1
+        -> shift to align the rightmost occurence of matchedSuffix (apart from the suffix itself) with the text 
+            make sure the character before this occurence isn't textsub[j], that would cause the same mismatch
+
+    else; matchedSuffix doesn't occur anywhere else: //case 2
+        -> then, we look for the longest suffix of matchedSuffix that matches the prefix of pattern 
+
+        if it exists:
+            shift so that we align the prefix of pattern with the suffix of matchedSuffix
+        else: //case 3
+            shift completely past; no pattern can be found within this window
+
+
+    to implement u would need 2 tables, one for case 1 and one for case 2
+
+    worst case is O(n + rm); r is the number of occurences
+        worst case r makes it O(mn)
+
+
+2. Horspool Modification (BMH)
+    if there is a match, whenever there is a char in the text that char must be in the pattern at the corresponding index 
+        if this isnt true, there is no match <- the bad character rule (can be applied to any char)
+    
+    currently with BM:
+        if the lastOccurence of the mismatched char is on the left of j, we can shift forward by more than one 
+        if the lastOccurence is on the right of j, we dont want to shift backwards, so we naively shift by 1
+
+    instead of naively shifting by 1, we can apply the bad character rule to textWindow[-1]
+        we find the last occurence of textWindow[-1] in pattern, and shift to align those. 
+        note that the last occurence of textWindow[-1] would be pattern[-1], since those matched previously. 
+        So rlly, we want the second last occurence of textWindow[-1] in pattern.
+            When we make the lastOccurence Table, we omit the final occurence for each char for this reason 
+        
+    with this, we can achieve good performance without good suffix, and average case can be argued to be O(m+n)
+
+
+3. The Galil Rule (BMG)
+    recall from OG BM that worst case is O(n + rm); because of the r (dependence on num occurences) that makes it O(mn)
+
+    with the galil rule we can make it O(n + m), truly linear in worst case 
+
+    a string is periodic if it has successive repeating blocks. 
+    The period, p is the length of that repeating block
+    Galil works on the periodicity of a pattern. 
+
+    If the pattern is aperiodic, then OG BM is indeed O(n + m); so all we need to do is handle periodic pattern strings 
+    With galil, if we find a pattern, we can shift by p instead of shifting by 1
+        if there is a mismatch, we revert to OG BM until there is another match 
+    
+    This guarantees linear time
+
+    To compute p (make sure its in O(m) to preserve linear time) - we can use the failure table idea from KMP (see next lesson)
+        we make the failure table in O(m), then find p with 
+        p = m - f[m-1]

@@ -1,0 +1,57 @@
+We can redefine kruskals algo with clusters now 
+
+Def Kruskals(graph){
+    priorityQueue PQ = [] //holds all edges 
+    for (edge : graph.edges){
+        PQ.enqueue(edge)
+    }
+    MSTEdges = {}
+
+    set disjointSet DS with all vertices in G as their own clusters
+
+    while (PQ nonempty and MSTEdges.size < graph.vertices.size-1){
+        edge(u, v) = PQ.dequeue();
+        uroot = find(u)
+        vroot = find(v)
+
+        //merge groups if in same cluster
+        if (uroot == vroot){
+            MSTEdges.add(edge)
+            union(uroot, vroot)
+        }
+    }
+
+    return MSTEdges; //u know if it failed (disconnected graph) if MSTEdge.size != graph.vertices.size - 1
+}
+
+
+Prims vs Kruskas:
+    we assume the best version of time complexity for comparison
+
+    Prims is O((|V| + |E|)log|V|)
+    Kruskas is O(|E|log|E|)
+
+    Dense Graph
+        if dense graph, |E| dominates 
+
+        so Prims becomes O(|E|log|V|) and Kruskals stays O(|E|log|E|)
+            for simple graphs time complexity becomes the same (|E| = |V|^2, and log(|V|^2) = 2log|V|)
+
+        for non-simple dense graph, Prims is definitely the better choice 
+        even for simple dense graph, Prims is still probably better (dont have to enqueue the large amount of edges/check for cycles with many adges)
+
+    Sparse Graph
+        if spares graph, |V| dominates 
+
+        so Prims becomes O(|V|log|V|) and Kruskals stays O(|E|log|E|)
+
+        Kruskals works better here in general 
+
+        If disconnected graph, prims might find out sooner than kruskals 
+    
+
+    Other considerations:
+        If edges come presorted, then Kruskals becomes O(|E|)
+        If we want MSF in the case of disconnected graph, choose Kruskals as it finds this more naturally   
+            (though prims can be modified for this as well)
+        If putting all edges into PQ is too memory intensive, prims is better 

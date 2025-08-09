@@ -1,0 +1,60 @@
+Linear Abstract Data Types: 
+    - Linear:
+        finite collection of objects 
+        each object has exactly 1 immediate predecessor, 1 immediate successor
+        except for the first (no predecessor) and last (no successor) 
+    - Abstract:
+        no low level details; high level idea
+        defined by behaviour, not the specifics of implementation 
+
+
+Stacks are Linear ADTS
+    - implemented with (backed by) various data structures 
+        - array or linked list 
+
+
+    - push = adding data (add on top)
+    - pop = retreiving data (from top)
+
+    stacks are LIFO = last in first out 
+
+    e.g. recursive stack 
+
+    Operations:
+        void push (data) //adds data to stack (on top)
+        T pop() //removes data from stack and returns it (from top)
+        T peek() or T top() //retrieves data from top of stack but doesn't remove it 
+        bool isEmpty() 
+        clear() //makes it empty; sets top to null and clears stack 
+
+    Stacks don't search/access/add/remove from anywhere within the stack; stuff only happens at the top
+
+
+    Examples:
+        - undo button
+        - accessed app in iphone 
+
+
+    Backing Implementations:
+        - Linked List Backed Stacks
+            - empty stack has an null head 
+            - pushing adds to the front; the top of the stack is the head of the linked list  O(1)
+            - poping removes from front O(1)
+            - clearing means setting head to null O(1) [data will be garbage collected]
+            - no tail pointer 
+            - SLL is the best and simplest way to implement a stack 
+                - DLL is overkill and more memory overhead
+
+
+        - Array backed stacks 
+            - we check size instead of head 
+            - empty stack has size 0 
+            - pushing adds element to the back of the array (O(1) ammortized for resizing)
+            - poping removes from the back of the array (O(1))
+            - clearing:
+                - cant rlly just reset size; since the data will not be garbage collected
+                    - if data is sensitive, this is bad for yet another reason
+                - we could manuall reset all elements to null O(n)
+                - instead, we reassign the backing array to a new array O(1)
+                    - now java can do garbage collection 
+            just as with the LL backed stack, every operation is O(1) [albeit some are ammortized O(1)]

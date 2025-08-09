@@ -1,0 +1,38 @@
+Knapsack Problem:  
+    - np complete 
+    - specifically looking at O-1Knapsack
+        we are shoplifting a store 
+        we want to maximize money made
+        we have a large knapsack which can handle a total weight W 
+        items have weights w1, w2, w3... that are integral 
+        item wi has value vi 
+        only 1 of each item (hence 0-1 version)
+
+        what is max value obtainable?
+
+Solution:
+    n is num items 
+    S = new matrix of W+1 x n+1
+
+    S[i][j] = max value with max weight i using up to item j 
+
+
+    S[i][0] = 0 for all i since with no items u cannot get any value 
+    S[0][i] = 0 since for no weight u cannot get any value 
+
+
+    S[i][j] = max(
+        S[i-w[j]][j] + v[j], 
+        S[i][j-1]
+    )
+
+    ^ we can compute this in the same way we did for LCS matrix in O(nW)
+
+Although it seems we have just solved an NP-complete problem in polynomial time:
+    However, the input W doesnt have W digits, but rather O(log(W)) digits 
+
+    So really, the algo is actually exponential in W
+        it is only polynomial in the value of W, not the actual input W 
+    
+    Such problems are called weakly Np-complete
+

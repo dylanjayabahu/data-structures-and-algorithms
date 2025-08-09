@@ -1,0 +1,19 @@
+We search 2-4 tree before adding just like with BSTs.
+    - we add to the leafs as with BSTs. But instead of adding new children, we add to the leaf nodes themselves
+
+    - If there are too many data in the node, we perform a promotion (split) to resolve it, which is propogated up the tree 
+
+
+
+Add Algo:
+    search the tree until u get to leaf node 
+
+    once there, add the data to the node (its ok if it overflows rn)
+
+    We choose to promote the 2nd or 3rd data value (depending on implementation)
+        ^ only middle data can be promoted
+    
+    To promote, the middle element is moved up into its parent (again, ok if overlow, that will also be promoted up)
+        ^ if no parents, the middle not is promoted up to the new root
+    the overflowed node is split into 2 parts: data that was left of the promoted boi and data that was right of the promote boi
+    Each of these is a new child node

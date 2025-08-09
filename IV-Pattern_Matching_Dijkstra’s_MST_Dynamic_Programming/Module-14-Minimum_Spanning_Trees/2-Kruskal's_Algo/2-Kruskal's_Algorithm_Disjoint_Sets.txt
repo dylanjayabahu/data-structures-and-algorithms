@@ -1,0 +1,132 @@
+
+The MST problem we encountered before can be treated as a more general problem 
+
+if we have a universe set S = {a, b, c, d, e, ...}
+we can partition the data (divide it into subsets that are mutually exclusive and collectively exhaustive)
+e.g. partition could be: C = {{a, b}, {c}, {d, e}}
+
+
+
+For Kruskal's Algo, the universe set is the set of vertices, V 
+The initial partition is every vertex by itself: C = {{v1}, {v2}, {v3}, {v4}}
+    as we add an edge to the MST, we merge/union the subsets (components) with those two vertices that are now connected 
+
+
+
+Tree Based Solution 
+
+    To accomplish what is described above, we need be able to do the two tasks:
+        1. Efficiently detect if two vertices are connected to each other. 
+            In other words, we're asking to check for a vertex's membership in a subset (component).
+        2. Merge/union connected components together efficiently 
+
+    To represent the the partition, we select a representative vertex for each subset 
+    
+    Lets say we have the partition {{a}, {b, c, d}, {e, f}}
+        let the first element be the representative vertex 
+        then: 
+            a's representative is a {this is like a tree with a as the root}
+
+            b's representative is b {this is a tree with b as the root}
+            c's representative is b 
+            d's representative is b 
+
+            e's representative is e {this is a tree with e as the root}
+            f's representative is f 
+        
+    so to see if two elements are connected, we check if they have the same representative (task 1)
+        to access the representative (root) we will call it finding => find(d) gives b, for example
+
+    to connect two elements, we set representatives to have a representative;
+        that is, we set the root of one element to be the child of another 
+
+        we will call this union(u, v)
+
+    if we wanted to merge the {b, c, d} with {e, f}:
+        we currently have 
+         
+         b          e
+       / |          |
+      c  d          f 
+    
+    and after merging it would be:
+    
+        b 
+      / |  \
+     c  d  e
+           |
+           f
+
+
+    find(a):
+        start at a and keep traversing up to the parent until root is reached 
+    
+
+    union(u, v):
+        uroot = find(u)
+        vroot = find(v)
+
+        uroot.setChild(vroot)
+    
+    although efficient on average, worst case is O(|V|) for both find and union
+    if we end up with just a linked-list looking tree; we want to minimize height of tree to be efficient
+
+
+Path Compression and Rank 
+
+    Path Compression (optimizes find()):
+        as we traverse up to the root from a node, we will eventually find the root 
+        now we can go back down the call stack and set each nodes parent to be the root directly
+        this way after each find operation the trees height is 1 
+            ^ implement with pointer reinforcement
+
+        future find operations will be O(1)
+
+        note that there are strategies that avoid recursion to make it more efficient still
+            namely path splitting and path halving; not covered here 
+    
+
+    Rank (optimizes union):
+        when doing union, we have the choice of setting vroot the child of uroot or vice versa 
+        we can decide based on the heights of the trees:
+            smaller height root becomes child of larger height root 
+
+        maintining the heights for this is tedious tho 
+        instead of constantly updating, just dont update it 
+        we will call this height that doesnt get updated the rank 
+        path comrpession can only decrease the height, so the rank is an upper bound on the height 
+
+        now, we decide based on rank rather than height 
+
+        in union(u, v){
+            //compute uroot and vroot with find 
+
+            if rank(uroot) > rank(vroot):
+                uroot.setchild(vroot)
+                uroot.rank++;
+            //same logic for vice versa case
+        }
+        
+    
+Efficiency of Kruskal's Algorithm 
+
+    the find and union operations are O(alpha(|V|))
+        alpha is the inverse ackerman function, which grows extremely extremely slowly 
+        alpha(num atoms in observable universe) <= 5
+
+        essentially, we can say find/union is O(1)
+
+        so, the cycle detection of Kruskal is O(1)
+
+    
+    - add all edges to PQ => O(|E|)
+    - dequeue from PQ => O(log|E|) <- do this up to |E| times 
+
+    therefore O(|E|log|E|) for any graph
+
+
+    note: simple graph means O(|E|) = O(|V|^2)
+        => so |E|log|E|
+            = |E|log(|V|^2)
+            = 2|E|log|V|
+            = O(|E|log|V|) for simple graphs

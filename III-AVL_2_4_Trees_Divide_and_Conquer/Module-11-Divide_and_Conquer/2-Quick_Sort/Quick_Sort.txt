@@ -1,0 +1,67 @@
+Quick Sort (specifically, Randomized inplace quick sort using the hoare partition scheme)
+    - split relative to 1 random array element, the pivot
+    - the other elements are placed either left/right of the pivot, so the pivots place in the array is correct. 
+        - the two subarrays on either side are passed in recursively to be quicksorted
+
+
+def quickSort(array, start, end){
+    if (end-start <= 1){ // assumes end is inclusive
+        return
+    }
+
+    pivotIndex = randomInt btw start and end
+    pivotValue = array[pivotIndex]
+
+    swapIndexes(pivotIndex, start) //moves the pivot value out of the way for the partitioning step
+
+
+    //partitioning step
+    i = start + 1 
+    j = end //end is inclusive
+
+    //if i and j have crossed, we have met in the middle and now the left side contains <pivot and right side contains >pivot
+    while (i <= j){ //while i and j have not crossed
+        while (i<=j and array[i]<=pivotVal){ i++ }
+        while (i<=j and array[j]>=pivotVal){ j-- }
+
+        //if i and j havent crossed yet, stuff is on the wrong side
+        if (i <= j){
+            swapIndexes(i, j)
+            i++
+            j--
+        }
+    }   
+
+    //now, index i and j have crossed; j has moved to the end of left side (the side < p); i has moved to the start of tight side (the side > p)
+
+    //we can now unswap:
+    swapIndexes(start, j) //move the pivot value back; it is now at index j
+    //^ this makes quicksort unstable tho
+
+
+    quickSort(array, start, j-1)
+    quicksort(array, j+1, end)
+}
+
+
+Quicksort analysis:
+    Best/average case: O(nlogn) (best case when pivot chosen is the median)
+    Worst case, however, is O(n^2) <- if the pivot chosen is the min/max
+
+    Unstable 
+    Non adaptive 
+    In place 
+
+
+Space complexity of Algorithms  
+    - We measure space complexity excluding space needed for the input/output  
+        this way we can distinguish b/w merge sort and quicksort (in place vs out of place), for example 
+        this is called the **Auxiliary space complexity** 
+
+    - We also measure by the maximum space used at any given time during execution, not all space used throughout
+        non used memory can be freed 
+    
+    - Recursions and method calls use up space 
+        with merge sort the recursion depth is O(logn), which is ignored relative to the O(n)
+        but with quicksort, the recursion depth is on average O(logn) and at worst O(n)
+            ^ so the space complexity of quicksort is on average logarithmic and at worst linear 

@@ -1,0 +1,44 @@
+Dijkstra's Shortest Path Algo: Computes the shortest distance from a single source node to all other nodes
+    works on weighted graphs (for unweighted we can solve with BFS)
+
+    general idea:
+        works by keeping track of the total distance to reach each node as it goes.
+        start by assuming the dist to all nodes is infinity
+        set source dist to be 0
+        every time u traverse an edge and get to a node, u add the dist of prev node with edge weight to get dist for current node
+
+
+Requirements for Dijkstra's Algo:
+    Priority Queue 
+    Visited Set 
+    Map
+    Source Vertex 
+
+    Dijkstra's works for both connected and disconnected graphs
+    It technically works on unweighted graphs but BFS can do it easier; best suited for weighted graphs
+    Works on directed graphs and undirected graphs (for undirected just add edges each way)
+
+
+def Dijstkra'sAlgo(graph, sourceNode){
+    visitedSet = {}
+    DistanceMap = {}
+    priorityQueue = [] //stores tuples/object of Node and dist 
+
+    for vertex in graph.vertices:
+        set distanceMap[vertex] = +inf 
+    
+    priorityQueue.enqueue((sourceNode, 0)) //dist to sourceNOde from sourceNode is 0
+
+    while priorityQueue not empty && visitedSet not full:
+        (u, d) = priorityQueue.dequeue();
+
+        if u not in visitedSet:
+            visitedSet.add(u)
+            DistanceMap[u] = d 
+
+            for each (w, edgeWeight) adjacent to u:
+                if w not in visitedSet: priorityQueue.enque((w, d + edgeWeight))
+        
+}
+
+^ dijsktra's only works when weights are non-negative

@@ -1,0 +1,41 @@
+Cocktail Shaker Sort: Like bubble sort, but we bubble the max up and then the min down each time. Keep going until no swaps made. 
+
+def cocktailSort(array){
+    madeSwap = True
+    startInd = 0
+    endInd = array.length - 1
+
+
+    while madeSwap:
+        madeSwap = false
+
+        for (int i = startInd, n = endInd; i < n; i++) {
+            if array[i] > array[i+1]{
+                swap i, i+1
+                madeSwap = true 
+                endInd = i
+            }
+        }
+
+        if madeSwap{
+
+        madeSwap = false
+
+        for (int i = endInd, n = startInd; i > startInd; i--) {
+            if array[i-1] > array[i]{
+                swap i, i-1
+                madeSwap = true 
+                startInd = i
+            }
+        }
+
+        }
+            
+}
+
+
+Cocktail Sort Analysis:
+    Best case: O(n)
+    Worst/avg case: O(n^2)
+
+    Stable, Adaptive, In place

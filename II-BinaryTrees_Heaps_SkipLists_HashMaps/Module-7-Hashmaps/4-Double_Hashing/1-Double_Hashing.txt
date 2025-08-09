@@ -1,0 +1,20 @@
+Double Hashing - a more general approach to collision handling 
+    - linear probing is a special case of double hashing, where c is always 1
+
+NewIndex = (c*h + oldIndex) % capacity
+    h is the number of times we've probed (as usual)
+    c is the result of a second hashfunction on the key; each key has a different rate of change
+        ^ the second hashfunctino is D(k)
+        D(k) = q - H(k) % q 
+            q is another prime number; helps to break up clusters
+
+Use DEL when deleting, just as with linear probing or quadratic probing 
+    As with quadratic probing, we can run into infinite loops (never finds an open spot)
+
+
+Note that linear probing is a special case of double hashing but quadratic isn't 
+    The secondary hash function takes the key as input, not the number of probes 
+
+Double hashing is also a bit more computationally heavy; 
+    at a low level computers can increment numbers very easily (as with linear probing)
+    but calculating the result of the second hash function is not 

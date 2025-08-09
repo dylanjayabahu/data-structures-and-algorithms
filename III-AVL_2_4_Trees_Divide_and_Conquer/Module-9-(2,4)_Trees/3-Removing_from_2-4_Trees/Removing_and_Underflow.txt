@@ -1,0 +1,26 @@
+When adding we encountered overflow - there is more than 3 data in a node 
+    - Handled with promotion 
+When removing we encounter underflow - there is less than 1 data in a node  
+    - Handled with transfer or fusion 
+
+    Transfer: 
+        -easier and preferred if possible
+
+        
+        Rn there is no data in this node. We need to fill it somehow 
+        Check if immediate siblings have transferable data (e.g. it has multiple data, not just 1)
+            If so:
+                Move the parent down to the empty node 
+                Move the transferable data up to the parent 
+            If not, must go to fusion
+
+    Fusion: 
+        Rn there is no data in this node.
+        If none of the immediate siblings have transferable data:   
+            Bring down data from the parent node. (if many data in the parent, bring the data that is a bounadry to this interval)
+            Now fuse the two nodes
+        
+        If we caused underflow with the parent, handle that with transfer if possible, then fusion again 
+            ^ we can see that fusion could propogate the underflow up to the root
+            if the underflow propgates to the root, once we have removed the root, the new fused node becomes the new root
+

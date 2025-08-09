@@ -1,0 +1,14 @@
+Problem: Given internal access to a Singly-Linked List with Comparable data:
+    - data is guaranteed to be in sorted order, 
+    - remove all duplicates from the list so that there is at most one of each data. 
+This task should be done in O(n) time and O(1) space 
+
+Recursive structure:
+Remove repeating nodes:
+    - return null if current node is null 
+    - remove repeating nodes from curret node.next to end
+    - if current node == node.next, remove this node form the linked list (return its new head)
+
+
+- we can have a wrapper method that the user calls, which checks for error handling, etc. then calls the recursive method
+    - public wrapper method, private recursive method 

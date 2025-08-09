@@ -1,0 +1,33 @@
+Summary of Collision handling strategies:
+    - external changing (closed adress)
+    - linear probing (open adress)
+    - quadratic probing (open adress)
+    - double hashing (open adress)
+
+Locality of Reference: computers are designed to access nearby locations in memory quickly 
+this is why you might want to use linear probing instead of external chaining 
+    The linked lists used in external chaining dont take advantage of locality of reference
+    Open adressing schemes, do take advantage of this (the memory adresses of an array are all nearby each other)
+
+
+In practice we see linear probing or external chaining typically 
+    Reasons against quadratic probing/double hashing:
+        - Tricky and hard to implement, need to be careful
+        - The goal is to avoid collisions altogether, so focus on that rather than focusing on how to fix them 
+        - arithmetic and modulo can be done fast, things like squaring or rehashing not so much (the memory adresses are close, but not adjacent)
+        - Avoiding infinite probing puts extra restrictions on the table configuration 
+
+
+Implementations in other languages 
+    - Java uses HashMap
+        uses a variation on external chaining 
+            external chaining for small n then switches to a self balancing BST after a certain point
+        max load factor is 0.75 by default
+    - Python uses Dictionaries
+        uses a varation on linear probing 
+        uses powers of 2 instead of primes (works well with computer architecture)
+        max load factor is 2/3
+    - C++ uses unordered_map 
+        uses external chaining 
+        max load factor is 1.0 (remember external chaining allows load factor to exceed 1)
+

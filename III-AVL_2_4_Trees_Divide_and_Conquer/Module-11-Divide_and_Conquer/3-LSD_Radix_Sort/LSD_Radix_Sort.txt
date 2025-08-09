@@ -1,0 +1,55 @@
+LSD (least significan digit) Radix sort: sorts integers digit by digit by moving from least significant to most significant digit
+    - bizzaringly, a non comparison sort...
+        comparison based sorting has Omega(nlogn) for the worst case
+    - can only work on integer-like data
+
+
+def radixSort(int[] array){
+    buckets = linkedList[19] //each linked list is like a queue 
+    //use 19 instead of 9 for both positive and negative (use only 10 if u know everythign is positive)
+
+    for k = 1 up to K: //K is num digits in longest number; compute k efficiently beforehand
+        for i = 0 up to array.length:
+            digit = kth digit from the right of array[i]
+            buckets[digit+9].add(array[i]) //again, digit +9 so the negatives are also handled
+        idx = 0
+        for bucket in buckets:  
+            while bucket.length > 0:
+                array[idx++] = bucket.pop();  //maintain queue behaviour
+                //remove in same order of adding to maintain stability
+                //also required to maintain order of previously sorted digits
+
+}
+
+
+
+LSD Radix Sort Analysis:
+    Best/Worst/Average case i O(kn)
+    Stable 
+    Not adaptive 
+    Out of place
+
+
+Radix Sort is very flexible - it works with any integer-like data   
+    - integers in base 10 have an "alphabet" of size 10; this is radix 10 (the radix in radix sort)
+    - a string of lowercase letters would be integer-like, and would be radix 26
+
+
+
+
+MSD Radix Sort: same idea but starting with the digits on the left 
+    note that implementing as above but simply chanign the digit calculation doesnt work; the msd needs to be last with the loop approach 
+
+    Instead we do it recursively. For each recursive iteration i:
+        Move the integers into the buckets based on digit i from the left
+        Sort each bucket with radix sort for iteration i+1
+        Dequeue all the items from each bucket into the array 
+    
+
+    - very large memory footprint compared to LSD
+    - somewhat adaptive: can stop sorting early if numbers are of varying lengths.
+    - can give you "almost sorted" array by doing a few iterations.
+        helpful if we only need to sort based on order of magnitude
+    - this version is stable; other variants that use less memory but unstable
+
+Part of a broader class of sorting algos called bucket sorts

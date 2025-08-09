@@ -1,0 +1,47 @@
+Pattern matching: finding occurences of a pattern string in a large text string
+    Input:
+        - smaller string called pattern (length m)
+        - larger string called text (length n)
+        - we may also recieve the alphabet with the characters of the pattern/text strings, of size s 
+    Output:
+        Single Occurence: output the location (index) of any occurence of the pattern 
+        All Occurences: output a list of locations (indices) of the pattern as substrings;  
+            overlapping occurences count. E.g. if pattern is aba, then the text ababa would have 2 occurences 
+
+
+    Used any time u use the ctrl f (find) command in document or webpage 
+
+Pattern Matching Algos:
+    Brute force 
+    Boyer Moore (BM)
+    Knuth Morris Pratt (KMP)
+    Robin Karp (RK) 
+        ^ kinda of like the radix sort version for this problem; reduces to integer matching 
+
+
+Brute Force Algorithm:
+    - Align the pattern at the start of text 
+    - Compare characters 
+    - If no match, shift 1 to the right and compare again 
+    - If match, pattern has been found
+
+
+def bruteForce(text, pattern){
+    for t = 0 up to n-m:
+        for i = 0 up to m-1:
+            if pattern[i] == text[t+i]:
+                if i == m-1:
+                    found; return index or add index to a list that is outputted at the end
+
+            else:
+                break;
+}
+
+
+Complexity Analysis
+    Best Case (match; just find 1 occurence) O(m)
+    Best Case (no match or find all occurences) O(n)
+    Worst Case O(mn)
+    Average Case O(mn)
+        Dont focus on avg case; diverse pattern matching applications, average case makes unreasonable uniform assumptions
+        Specifying it lacks certainty without specific context and parameters.

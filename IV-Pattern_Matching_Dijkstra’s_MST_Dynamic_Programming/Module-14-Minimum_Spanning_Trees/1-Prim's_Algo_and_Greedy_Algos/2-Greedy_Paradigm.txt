@@ -1,0 +1,29 @@
+Greedy Paradigm: 
+    Greedy Algorithm: decision is made by considering local options and selecting the option that is locally optimal
+
+
+    Dijkstra's and Prim's are both greedy 
+        Dijkstra: locally choose the optimal distance from distances so far
+        Prim: choose the optimal edge from the current local cut of visited/unvisited 
+
+    Kruskal's algo is also greedy 
+
+
+Greedy does not always work: e.g. Travelling Salesman Problem (TSP)
+    We have a graph of cities (nodes) and distances b/w them (edges)
+    Salesman needs to visit each city once and return home 
+
+
+    Greedy approach to TSP:
+        start at a vertex 
+        choose the best of all the edges and traverse it
+        return home when all cities finished  
+    
+    ^ this differs depending on which vertex u start and doesnt find the optimal solution; 
+
+
+Greedy is still often good:
+    - Intuititive and simple concepts that can be built upon 
+    - Relatively efficient (polynomial time)
+    - Often give good approximations
+    

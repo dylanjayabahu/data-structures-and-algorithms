@@ -1,0 +1,19 @@
+Arrays - store a sequence of related objects
+    - each element has an index
+    - storage allocated in a contiguous memory (side by side)
+    - elements must be of the same type
+    - can store basically any data type
+
+- Can initialize array with values or initialize space for the array and populate with defaults
+
+- Access or modify specific cell in O(1) (assuming u know the index)    
+    - basically just pointer arithmetic
+
+- If an array has capacity n, we can find any element in O(n) [linear search]
+
+- Memory is Static for Arrays   
+    - if we want to extend the capacity; or add even a single extra element outside the capacity, 
+      we must copy over the data to a larger chunk of memory so that there is space to add what is needed
+    - time complexity for adding a new element outside the capcity, is, hence, O(n)
+        - u have to copy the whole array (O(n))
+        - not very efficient in that regard

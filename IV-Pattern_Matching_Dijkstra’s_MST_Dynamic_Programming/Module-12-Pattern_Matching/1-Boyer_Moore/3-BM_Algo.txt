@@ -1,0 +1,46 @@
+BM concept:
+    - make the last occurence table for the pattern 
+    - move right to left through the pattern 
+        if match with text: keep comparing next characters
+        else:
+            if mismatched char in pattern's alphabet: shift to align with the last occurence of that char in pattern 
+            else: shift to move completely past the mismatched char 
+    
+
+def BM(text, pattern){
+    last = BMLastTable(pattern)
+
+    i = 0
+    while (i <= text.length - pattern.length){
+        j = pattern.length - 1 
+        while j >= 0 and text[i+j] = pattern[j]{
+            j--;
+        }
+
+        if j == -1:
+            return i or add i to outputList // pattern found case 
+            i++;
+        else: //mismatch occured 
+            shift = j - last[text[i+j]]
+            i += shift if shift>0 else 1
+    }
+
+
+    return patternNotFound or outputList;
+}
+
+Efficiency of BM    
+    - works best with large text+pattern alphabets
+        more chars in text that dont exist in pattern, so we can shift over a lot 
+
+    Single Match Best Case 
+        O(m) (match right at start) 
+        or O(n/m) (no match, skip fully each time)
+        ^ O(n/m) could be faster 
+    
+    All Occurences Best Case 
+        O(n/m) - always mismatch and skip fully to find no matches 
+
+    Worst Case 
+        O(mn) - e.g. text = aaaaaaaaa; pattern=baaa
+        ^ degenerates down to bruteforce

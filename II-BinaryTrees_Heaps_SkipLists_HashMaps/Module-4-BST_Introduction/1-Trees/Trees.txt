@@ -1,0 +1,65 @@
+Trees: linked nodes with parent-child relationships
+    - Linked lists are a type of tree 
+    - Typically the linkes are not bidirectional; links travel from parent down to child 
+
+Root: the node in the tree with no parent 
+    - typically drawn at the top 
+
+
+Internal Node: any node with children 
+External Node/Leaf: any node without children 
+
+We discuss tree nodes in terms of family relationships  
+    C is the parent of A if there is a link from G to A
+    G is the grandparent of A if there is a link to A's parent 
+    A and C are siblings if they share the same parent 
+    A and B are cousins if they share the same grandparent but not the same parent 
+    ^ all the same stuff like in a real family tree 
+
+    Each node can have at most 1 parent (or 0 if its the root)
+
+Trees are very recursive; 
+    each node can be the root of a subtree 
+
+    There are single-element trees 
+    And also null trees 
+
+
+Depth: the distance from the root 
+    - root has depth 0
+    - root children have depth of 1
+    - root grandchildren have depth of 2
+
+    - depth(node) = depth(node.parent) + 1; depth(root) = 0
+
+Height: opposite of depth; the distance from the furthest leaf that can be reached
+    - leaf have height of 0
+    - parent of leaf have height of 1
+    - grandparent of leaf have height of 2
+
+    - height(node) = max(height(node.children)) + 1; height(leaf) = 0
+
+
+Trees cannot have cycles 
+    - cycle = can reach node through a path back to itself 
+
+Trees are ADTS - can be implemented in many ways    
+    - Can be done as arrays, but commonly done as Linked LIst Structures 
+
+
+Shape: structure of trees 
+Order: how the data is arranged 
+
+
+Classification of Trees:
+
+- Tree
+    - (2,4) tree
+    - Binary Tree 
+        - Heaps
+        - Binary Search Trees 
+            - AVLs
+            - Splay Trees 
+
+Same operations as with linear adts (add/query, etc)
+    - but no concept of back/front 

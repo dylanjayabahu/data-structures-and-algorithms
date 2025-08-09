@@ -1,0 +1,25 @@
+Dijkstra's layed the foundation for other shortest path algos, such as uniform cost search (UCS) and A* 
+
+Shortset path in graph is very useful in things like AI where nodes are states and edges are actions
+    e.g. maze solving, games, etc. 
+
+    weights of edges can be changed to motiviate some actions and demotivate others 
+
+
+UCS:
+    same as dijkstra's but u dont add all verticies to the dist map initially - only those u come across 
+    Only wants to find path to single destination vertex, not all vertices 
+    essentially lazy version of Dijkstra for large graphs 
+
+UCS is blind algo
+    Blind = ignores structure present in the problem 
+    We can use heuristics to not be blind 
+
+
+Heuristics:
+    h(State) is a heuristic function 
+        e.g. manhatten distance 
+    
+    A* uses heuristics and cost and minimizes h(S) + c(S)
+
+    with a good heuristic that is both admissible and consistent, A* performs much better than Dijkstra's and UCS

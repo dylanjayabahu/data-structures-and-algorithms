@@ -1,0 +1,32 @@
+Application of Shortest Path algos: Routing Protocols
+
+Computer networks can be modelled as a graph with edges as distance/cost to use that link 
+    nodes are routers in the network 
+    edge are the literal links connecting the routers 
+
+
+Routing algo needs to find which path to send packet of info on to get to destination 
+
+
+Routers only have a local view of the network (they can only see which routers they are linked to)
+    ^ forwarding table 
+
+
+Centralized Approach (link-state)
+    Maintain some global view of the network, then run dijkstra's
+
+    hard part is maintaining the global view 
+        - have routers broadcast messages to neighbours at intervals, updating the graph at that router 
+        - or maintain a graph at a central computing center and send the computed routing tables to each router 
+    
+Decentralized Approach (distance-vector)
+    use an algo like bellan-ford so u dont need a global view 
+
+
+    Routers still broadcast, but dont need to send the whole graph, just the shortest path to destination routers 
+
+    Shortest paths/routing tables will iteratively get better with each update 
+
+    Hard part is to update shorest paths accurately and quickly
+        shortest paths that used to exist might be gone after network change
+        we wouldnt know since we dont keep a global view 

@@ -1,0 +1,48 @@
+
+
+Look ahead method:
+
+    void add (data, root){
+
+        if data < root.data:
+            if root.left == null:
+                root.left = new node (data)
+            else:
+                add(data, root.left)
+        elif data > root.data:
+            if root.right == null:
+                root.right = new node (data)
+            else:
+                add (data, root.right)
+        else:
+            data is duplicate; dont add 
+    }
+
+
+    ^ becomes more difficult with more complex trees, also edge cases (e.g. empty BST)
+
+
+
+Pointer reinforcement:
+    use the return field to restructure the tree 
+
+    public void add(data){
+        this.root = rAdd(data, this.root)
+    }
+
+
+    private node rAdd(T data, Node curr){
+        if curr = null:
+            size++
+            return new node(data)
+
+        elif data < curr.data:
+            curr.left = rAdd(data, curr.left)
+        elif data > curr.data:
+            curr.right = rAdd(Data, curr.right)
+        else: 
+            //data already exists; ignore and dont add or raise error, etc
+        
+        return curr
+    }
+

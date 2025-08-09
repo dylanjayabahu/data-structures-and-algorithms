@@ -1,0 +1,88 @@
+Dynamic Programming = solving a large problem by solving smaller overlapping subproblems
+    dp stores the solutions to the subproblems so they arent recomputed (memoization)
+
+
+Components:
+    idenfiy optimal structure of subproblems
+    establish order of solving 
+    solve subproblems and combine solutions to solve large problem
+
+
+E.g. fibonacci: fib(n) = fib(n-1) + fib(n-2) //fib(0) = 0 and fib(1) = 1
+
+def recursiveFib(n):
+    if n==0: return 0
+    if n==1: return 1 
+
+    return fib(n-1) + fib(n-2)
+
+^ we repeatedly recaluclate fib of certain values many times
+amount of work increases exponentially
+O(2^n)
+
+
+def dpFib(n):
+    num[0] = 0
+    num[1] = 1
+    for i = 2 up to n:
+        num[i] = num[i-1] + num[i-2]
+    return num[n]
+
+
+DP is especially useful with overlapping subproblems:
+    when u have subproblems that get solved multiple times 
+Memoization = storing solutions to subproblems so we dont need to recompute them 
+
+
+Top-Down DP = start from the big problem and work down; happens if u implement a regular recursive solution and add memoization 
+    In terms of time complexity this is fine, but it recursion is is often slower than iteration so we avoid it if possible 
+    U start at the solution and work down towards the base case (then it gets unravelled back up)
+Bottom-Down DP = start from the bottom smallest problem and work up
+    e.g. instead of adding a memo list to the recursive fib, start at fib(0) and fib(1) and work up to fib(n)
+    U start at the base case and work towards the solution 
+
+
+
+
+
+Nuances of DP 
+    Typically we start with the top down as it is more intuitive, then modify for the bottom up as it is 
+    usually more efficient 
+
+    In some cases top down is preffered: 
+        if there large number of smaller subproblems 
+        and we only need to compute an unpredictable subset of them
+
+    
+    Implementation is ez for DP - hard part is identifying subproblems and how to combine them; the optimal substructure 
+        Optimal Substructure: optimal solution to overall problem is made from the optimal solutions to subproblems
+
+    Drawback is that it requires more space than the recursive solution     
+        e.g. Exponential Time and Constant Space => Polynomial Time and Polynomial Space
+
+        but typically space is cheaper than time, so thats good 
+    
+
+
+DAG - Directed Acyclic Graphs 
+    After defining the subproblems, you can create a directed graph with the vertices as the subproblems 
+    We add edges from u to v if, in order to compute u, we need v 
+
+    in this way, the edges represent recursive calls and nodes represent combining subsolutions into a bigger solution
+
+    ^ this is our directed graph 
+
+    If the directed graph is acyclic (hence Directed Acyclic Graph; DAG)
+    then DP can be used 
+
+    DAGs are always topologically sorted; there is always some order in the computation of the subproblems 
+        Acyclic part ensures can u solve all the dependancies before u put them together 
+
+    
+    Now in the context of DAG:
+        Top Down performs a depth first search on the DAG and stores the solutions as it returns from the recursive calls 
+        Bottom up "sorts" the order of subproblems ahead of time so the computer can compute subsolutions in right order 
+
+
+    If the directed graph is not just acyclic but also a tree, then we can divide and conquer which means no memoization needed 
+        E.g. Merge sort

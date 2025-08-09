@@ -1,0 +1,36 @@
+Further Optimizing:
+    1.
+        Currently, we only update distMap (best known dist) when we mark a node as visited
+            visited = finalize its distance 
+
+        Instead, we can decouple (separate) these two 
+        We can update distanceMap[node] whenever the current distance to it is better than the existing distance in the map 
+
+        We only add to the priority queue if the distance was reduced 
+
+        In this way we wavoid adding worst paths and dont need an entire separate visited set
+
+    2.  
+        (mentioned before)
+        instead of adding new entries with new priorities, just update the priorities in the priorityQueue 
+        this means the PQ's size never exceeds O(|V|)
+
+    
+
+Negative Edge Weights/Cycles:
+
+    Negative Cycles:
+        If there is a negative cycle, then shortest path doesnt make any sense 
+            ^ you can just keep looping around the negative cycle to get lower and lower dist 
+
+            Note negative cycle = sum of edge weights in cycle < 0
+        
+            If there is a single undirected edge with a negative weight, this too acts as a negative cycle cycle 
+             ^ You can just go back and forth across the negative edge to lower ur dist forever 
+        
+
+    There are some graphs for wich negative weights (not cycles) can still be included and it is reasonable to find a shortest path
+        Dijkstra's algo will fail in these cases
+
+        We would have to ignore the visited set and keep updating till no smaller path; but this is much much more inefficient
+        We could also use Bellman-Ford algo (O(|V||E|)) or Floyed-Warshall algo (O(|V|^3)).  <- both discussed later

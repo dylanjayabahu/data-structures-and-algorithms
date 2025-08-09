@@ -1,0 +1,15 @@
+Recall that we can build a heap from an unordered list in O(n) with BuildHeap
+So, another O(nlogn) algo is:
+    build a heap from the data with BuildHeap
+    repeatedly remove from the heap (which is O(logn))
+        ^ removing n items each in logn time is O(nlogn) for best/avg/worst case 
+
+Analysis:
+    Theta(nlogn)
+    not adaptive
+    not stable
+    out of place (required to make another data structure)
+
+
+This idea can be applied to other data structures:
+    We can do an inorder traversal of a BST/AVL in O(n), having build the tree in O(nlogn) on average

@@ -1,0 +1,29 @@
+Sorting: arranging data based on defined order
+    Order established via comparisons (comparable/comparator)
+
+Types of sorting algos:
+    Iterative algos
+        Iterate through the data several times to sort w comparisons 
+        E.g. bubble sort, cocktail shaker sort, insertion sort, selection sort
+    Divide and Conquer algos
+        Break the data into subsets and sort the subsets using comparisons 
+        E.g. merge sort, in place quicksort
+    Non comparison algos 
+        Sort certain types of data with properties we can use to sort
+        LSD (least significant digit) Radix Sort
+
+
+Analyzing Sorting Algos:
+    Time complexity 
+    Stability
+        - maintains relative order of duplicates throughout the sort
+        - instability comes from making non-adjacent swaps 
+        - stability allows multiple sorts to be applied and maintain meaningful order among duplicates (e.g. key, secondary key in python sort)
+    Adaptivity
+        - Adaptive = takes advantage of preexisting order in array to improve performance
+        - achieved by design or optimizations
+        - Can terminate early if array already sorted
+    Place (in/out of place)
+        - In place = no more than O(1) extra memory is needed; never copies data into a new memory space; moves data within the og structure
+            In place sorts use a lot of swapping 
+        - Out of place moves data into a new data structure

@@ -1,0 +1,72 @@
+Quick-Select: used when want to find the k-th smallest element of an array.    
+    if sorted, just return at index k-1
+
+    if unsorted - dont bother fully sorting the array. Just need to partially sort it; we can do it in O(n) on average 
+
+    since quicksort places 1 element in right spot, and then sorts left/right sides, we can do a binary search esque approach 
+
+
+def quickSelect(array, start, end, k){
+    pivotIndex = randBetween start and end
+    pivot = array[pivotIndex]
+    swapIndexes(Start, pivotIndex)
+    i = start + 1
+    j = end 
+    
+    while (i <= j){ //while i and j have not crossed
+        while (i<=j and array[i]<=pivotVal){ i++ }
+        while (i<=j and array[j]>=pivotVal){ j-- }
+
+        //if i and j havent crossed yet, stuff is still on the wrong side
+        if (i <= j){
+            swapIndexes(i, j)
+            i++
+            j--
+        }
+    }  
+
+    swapIndexes(j, start) //return pivot value to where it should be
+
+
+    //now stuff is on the correct side of pivot 
+
+    if j == k-1: //index k-1 is correct. we can return it as we have found the kth smallest element
+        return array[j] 
+
+    elif j < k-1:
+        return quickSelect(array, start, j-1, k)
+
+    else:
+        return quickselect(array, j+1, end, k)
+
+}
+
+
+quicksort analysis:
+    runs in O(n) in best and average case
+        on the first iteration we look at all data (n), then half of it (n/2) then quarter of it (n/4) ...
+        n + n/2 + n/4+ ... = 2n = O(n)
+
+    worst case is O(n^2) in the case that the pivot chosen is the min/max each time
+
+    Not stable (can return any of the elements that could be tied for kth place)
+    In place
+
+    Doesnt make sense to say its adaptive or not - not a full sorting algo 
+
+
+
+Deterministing Pivot Selection:
+    - we could choose the pivot by just taking the first element, since we are going to swap it with start anyway 
+        however, if the array is already sorted, this makes it the worst case of O(n^2); the opposite effect of being adaptive 
+    - instead, we could take the first/middle/last elements of the subarray and use the median of those 3 as the pivot 
+        better, but still could run into worst cases 
+    - we can guarantee worst case performance of O(nlogn) for quicksort and O(n) for quickselect with the median of medians 
+        group then elements into subarrays of 5; there are n/5 of them 
+        find the medians of each of the size-5 groups 
+        find the median of each of those medians
+        use that as the pivot 
+
+        the overall cost of computing this median is O(n). But it is often not implemented since the random selection makes it 
+        very unlikely that u run into a worst case and the overhead of median of medians outweights that small chance that random 
+        selection creates a worst case 

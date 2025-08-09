@@ -1,0 +1,83 @@
+Reductions:
+    given a problem A, A reduces to problem B if:
+        an algo that solves B will always solve A
+    ^ A <= B means A reduces to B
+
+    B is harder to solve than A 
+
+
+    E.g. shortest path problem vs all pairs shortest path 
+
+        if u have solved all pairs shortest path, you have solved shortest path from single source 
+
+
+Efficient Algorithm 
+    We say it is efficient if it is Polynomial Time 
+    (compared to exponential)
+
+    a bit arbitrary and not always helpful 
+        e.g. n^100 vs 2^n
+        asymptotically n^100 is still better
+        but practically 2^n is clearly better 
+
+
+    it seems this definition of efficiency isnt very helfpul 
+        cuz weve only dealth with easy problems so far 
+    
+        it is useful for hard problems, however (which is the core of P=NP)
+
+    
+
+
+P=NP
+
+    decision problem = yes or no answer 
+
+
+
+    set P = all the decision problems that can be solved in polynomial time 
+
+    set NP = all the decision problems where, if answer = YES we can verify the YES in polynomial time 
+        the answer=YES will come with a proof, so verifying the YES means verifying the proof 
+    
+    every problem in NP can be solved in exponential time 
+
+
+
+    P=NP problem asks if the sets are the same 
+
+    we can show that P is fully contained within NP (every P is NP)
+        if we have a P problem that we can solve in polynomial time, 
+        we can verify the YES by running that solve, taking polynomial time 
+        so we can verify the YES in polynomial time, which means the problem is also an NP problem
+
+
+    the hard part is seeing if every NP is P
+        if there is an efficient (polynomial time) way to check an answer's correctness, 
+        does that mean there is an efficient (polynomial time) way to solve the problem?
+
+    
+    NP-complete:
+        these are problems that any NP problem can be reduced to
+        i.e. if we have a solution NP-complete problems efficiently (polynomially), we can solve any NP problem efficiently (polynomially)
+        i.e. the NP-complete problems are harder than the NP problems
+
+        NP-complete problems are NP themselves
+
+    if a problem satisfies being NP-complete, but isn't NP itself, it is NP-hard
+
+
+    to show that P = NP:
+        => show that all NP problems can be solvable polynomially 
+        => show that an NP-complete problem can be solved polynomially (since NPs reduce to NP-complete)
+        => or show that NP-hard problem can be solved polynomially
+    
+
+Most ppl think that P!=NP, and lots of things like cryptography assume this 
+
+If P does = NP:
+    either: the proof/algo found will be so inefficient (like O(n^100)) that it doesnt change much about real world 
+    or: there will be an efficienty polynomial algo for NP-complete problems, and hard problems could be solved efficienlty 
+        but othign would be secure (modern cryptopgrahy assumes P!=NP)
+
+It is likely that P!=NP

@@ -1,0 +1,39 @@
+Breadth First Search (BFS):
+    Kind of like level-order traversal for BST 
+
+    Inspects all vertices 1 away, then 2 away, etc. 
+
+    Uses a queue rather than stack 
+
+    Also finds shortest path when graph is unweighted 
+
+
+
+Def BFS(graph, startNode){
+    visitedSet = {startNode}
+    Queue = [startNode]
+
+    while (Queue is nonempty){
+        v = Queue.dequeue();
+
+        for all w adjacent to v:
+            if w not in VS:
+                visitedSet.add(w);
+                queue.enqueue(w);
+    }
+
+}
+
+
+Time complexity:
+    Just as iwth DFS, BFS is O(|V| + |E|) assuming efficient hashing 
+
+
+BFS vs DFS:
+    - if graph is very deep, may choose BFS to avoid going down a deep rabbithole for long time 
+    - if graph is very wide, may choose DFS to avoid staying on the same layer for long time 
+    - if vertex is known to be close to Startnode relative to graph size, choose BFS
+
+    etc etc choose appropriately based on use case
+
+dfs is a teeny bit nicer since u can do it recursviely with stack; so if equal options between two, dfs is ez to implement

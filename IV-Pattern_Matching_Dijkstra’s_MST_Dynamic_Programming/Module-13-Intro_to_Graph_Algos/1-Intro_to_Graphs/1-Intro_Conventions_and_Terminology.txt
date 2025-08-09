@@ -1,0 +1,153 @@
+Graphs: non linear data structure; contains vertices (aka nodes) and edges (aka arcs)
+    Model relationships (e.g. city road networks, neural nets, etc)
+
+    Trees are types of graphs, as are linked lists 
+
+    A graph is a set of vertices and Edges    
+        Edge:
+            - aka arcs
+            - edges connect vertices; can be undirected or directed
+            - edges represent a connection b/w two vertices; origin and destination vertex
+            - an edge connected to a vertex is incident on that vertex 
+
+            - Weighted Edges (cost)
+                the weight of an edge is the cost of traversing an edge (e.g. physical distance or cost)
+                weights can be any real number
+
+        Vertexes:
+            - aka nodes
+            - are considered adjacent if there is an edge connecting them 
+            - Degree: degree of a vertex is how many edges connect to it 
+
+    Order: order of a graph is how many vertices there are
+    Size: size of a graph is how many edges there are
+
+    
+
+    
+Directed Vs Undirected:
+    Undirected graphs:
+        - have all undirected edges; can go either way (origin to destination and destination to origin)
+            shown lines without arrow ends
+        - the set of edges, E, each are unordered pairs (u, v)
+            (u, v) and (v, u) are the same edge
+
+
+    Directed Graphs (aka digraph):
+        - have all directed edges; edges can only be taken in 1 direction from origin to destination 
+            shown with arrows as the edges 
+        - the set of edges, E, are each ordered pairs (u, v)
+            (u, v) and (v, u) are different edges
+        
+      
+    if we want to talk about undirected/bidrectional edges in a diagraph:
+        we can just add two edges (u, v) and (v, u)
+        if the edge is weighted, we assign the second edge the same weight or the negative weight depending on context
+
+
+
+
+Paths, Trails, Circuits and Walks 
+    Path (simple path): a sequence of non-repeated adjacent vertices; a set of edges that connect two vertices
+        length of path is number of edges 
+    
+    Trail (non simple path): a sequence of (possibly repeated) adjacent vertices, but edges still cant repeat
+        length of trail is still the number of edges
+
+    Walk: a trail where the edges can repeat as well 
+
+    Cycle: a path where first and last vertices are adjacent
+        Sometimes, in notation, the first vertex may be repeated again at the end to emphasize that it connects 
+
+    Circuit: a trail where first and last vertices are adjacent 
+        Sometimes, in notation, the first vertex may be repeated again at the end to emphasize that it connects 
+
+
+    ^ Note - for digraphs, the adjacent vertices' edges must be in the right direction (apples to all path/trail/walk)
+
+
+
+
+Simple Graphs, Self Loops, Parallel Edges
+
+    Self Loop: edge with same origin and destination node
+    Parallel Edges: edges connecting the same to verticies with same two orientation (and same direction if applicable)
+
+    Simple Graph: a graph with no self loops or parallel edges 
+        ^ when we refer to graphs, we typicallly are referring to a simple graph 
+        
+    
+    Multigraph: a graph where self loops and parallel edges are allowed 
+        ^ use this term to specifically allow self loops and parallel edges
+
+
+
+
+Graph Complexity
+    graphs are notated as G = (V, E), where V is set of vertices and E is set of edges 
+
+    |V| is number of vertices
+    |E| is number of edges 
+
+    we express time and space complexity in terms of |V| and |E| 
+        - if lazy just use V and E insteead (omit the ||)
+        - another option is to say n = |V| and m = |E|
+
+ 
+
+
+Connectedness   
+    Connected Graph (undirected): a graph where any two vertices has a path bewteen them
+
+    Connected Graph (digraph):
+        a bit more nuanced because path from a to b doesnt mean path from b to a
+
+        Weakly connected: if a diagraph is connected in an undirected sense 
+            for any vertices u and v, there exists a directed path from u to v OR from v to u
+        Strongly connected: if every pair of vertices has a true path between them (following direction)
+            for any vertices u and v, there exists a directed path from u to v
+
+
+
+Dense vs Sparse:
+
+    Dense Graph: number of edges is close to maximum number of edges 
+        almost every node is has an edge to almost every other node
+
+        |E| = Theta(|V|^2)
+            ^ number of edges betweeen n verticies is nC2 = n(n-1)/2 = O(n^2)
+            since |V|=n, then we get Theta(|V|^2) (tight bound)
+
+
+    Sparse Graph: number of edges is close to the minimum number of edges (0)
+        |E| = O(|V|)
+
+        by definition a disconnected graph is sparse 
+
+
+
+Common Graph Families:  
+
+    Complete Graph: Kn
+        n is the number of vertices
+        every edge possible is present (every node is adjacent)
+        e.g. a K5 graph has 5 vertices that are all connected to one another 
+
+        Tournament: if directions are added to a complete graph
+
+
+
+    Cylic Graph: contains cycles
+        Cycle graph: Cn 
+            n is the number of vertices
+            the whole graph is 1 cycle 
+
+    Acyclic Graph: contains 0 cycles
+        
+        
+    Tree: Acyclic connected graph
+        Forest: If we drop the connected requirement, we get a forest
+
+    
+    Peterson Graph: serves as a counter example for many graph problems 
+        has many C5 copies as subgraphs

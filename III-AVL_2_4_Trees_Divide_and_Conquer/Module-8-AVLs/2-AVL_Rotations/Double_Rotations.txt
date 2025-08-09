@@ -1,0 +1,70 @@
+Single Left rotation only works if Node BF = 2 and the child BF = 1 or 0 
+    If the child BF = -1, this wont work. In this case, we need a Left-Right Rotation.
+
+          C 
+        /   \
+       A    T4
+     /   \
+    T1   B 
+        /  \
+       T2   T3
+
+    ^ the tree is heavy left, then right. So we do a left-right rotaiton (rotate left about A then rotate right about B).
+
+    Rotate left about A:
+          C
+         /  \
+        B   T4
+      /  \
+     A   T3
+   /  \
+  T1   T2
+
+  ^ now this is just like the case for a single right rotation, so we do that (about B) to become balanced
+
+         B 
+      /     \
+     A       C 
+   /  \     /  \
+  T1  T2   T3  T4
+
+
+
+
+
+
+Single Right rotation only works if Node BF = -2 and child BF = -1 or 0 
+
+    IF the child BF = 1, this wont work. In this case, we need a Right-Left rotation. 
+
+        C 
+      /   \
+     T1    A 
+          /  \
+         B   T4
+        / \
+       T2  T3
+
+    The tree goes right then left, so we need a right-left rotation. (Rotate right aboute A, then rotate left about B)
+
+    Rotate right abobut A:
+
+     C
+    /  \ 
+   T1   B 
+       /  \
+      T2   A 
+          / \
+         T3  T4
+
+    ^ now this is just like the case for single left rotation, so we do that (about B) to become balanced 
+
+    
+       B 
+     /   \
+    C     A 
+   / \   /  \
+  T1 T2 T3  T4
+
+
+Note that rotations are O(1), and hence Left-right/right-left are still O(1)

@@ -1,0 +1,55 @@
+- We assume visitedSet and map are hashset and hashmap for O(1) operations
+- We assume priority queue backed by a heap for O(1) access and O(logn) insertion
+
+The priority queue could contain up to O(|E|) entries 
+    since we never reuse edges in the PQ 
+    (although we could reuse vertices with different paths to it in the priority queue)
+
+It follows that there will be O(|E|) adding and O(|E|) removing done on the PQ
+    both of these are O(log|E|)
+
+So overall, the version of simplistic dijkstra described is O(|E|log|E|)
+    ^ we don't use decreaseKey() to update existing entries and just add a separate new entry to the priorityQueue
+
+
+
+
+Other Implementations
+
+    Simple graph w/ binary heap:
+        - u can assume the graph is simple 
+        - u can use the decreaseKey() operation on a binary heap to update an entry to have better priority 
+            (instead of just adding a new entry with better priority)
+            can be done in O(logn)
+        
+        Now the priority queue is of size at moset O(k), where k is the number of nodes (reachable from source)
+
+        We now remove from PQ O(k) times, since each time we dequeue an edge it will be the shortest path (no useless entries in the PQ now) 
+        We still update PQ at most O(|E|) times
+
+
+        Now, time complexity is:
+
+        O(k * cost(dequeu) + |E| * cost(updateOrAdd))
+        = O(k * logk + |E| * logk)
+
+        since k is |V| in workst case, we get 
+
+        O(|V|log|V| + |E|log|V|)
+        ^ for connected graph |E| >= |V| - 1, so |E|log|V| dominates, so for connected u could say O(|E|log|V|)
+
+        But in general it is:
+        O(|V|log|V| + |E|log|V|) = O((|V| + |E|)log|V|)
+
+        ^ this is what is most commonly found on internet
+
+
+
+    Adjacency Matrix:
+        If u use an adjacency matrix u get O(|V|^2)
+
+
+    Fibonacci heap:
+        u get O(|E| + |V|log|V|)
+        since ammortized add/update is Thetha(1) for fibonacci heap
+        note fibonacci heaps are not rlly used in practice and more for theoretical to make better time complexity

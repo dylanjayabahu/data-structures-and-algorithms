@@ -1,0 +1,25 @@
+def bellmanFord(source):
+    Initialize dist, a mapping from vertices to distances.
+    for each vertex v:
+        dist[v] = ∞
+    dist[source] = 0
+
+    for i = 1, 2, ..., |V| - 1:
+        for each directed edge (u, v, w):
+            if dist[v] > dist[u] + w
+                dist[v] = dist[u] + w
+
+    return dist
+
+
+Dp algo 
+Works on negative edge weights as well 
+
+
+At iteration i we compute the dist to all other nodes using i edges
+
+Every shortest path in a graph with no negative cycles will use |V| - 1 edges, so at iteration |V|-1, we stop 
+
+To detect if there are negative cycles, we can iterate |V| times. 
+    On that last iteration, if we found a way to reduce any dist, there is a negative cycle 
+    We somehow reduced the dist by traversing another edge than needed - which is only possible with a negative cycle 

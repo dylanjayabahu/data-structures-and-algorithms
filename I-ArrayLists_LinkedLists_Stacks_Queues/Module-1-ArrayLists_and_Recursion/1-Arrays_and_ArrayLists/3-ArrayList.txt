@@ -1,0 +1,44 @@
+ArrayList:
+- list implementation backed by an array 
+- only supports objects (for primitives, must use wrapper class)
+- stored in contiguous memory blocks
+- Java Syntax (need to import java.util)
+    ArrayList<String> listName = new ArrayList<>(); //java uses default capacity of 10
+    ArrayList<String> listName = new ArrayList<>(100); //can specify ur own capacity (e.g. 100)
+- arraylists are backed by arrays and hence share many of the same limitations
+    - they are automatically resized when they reach capacity (handled automatically)
+    - dynamically allocated in that the array is reallocated and copied when more space needed
+    - still takes O(n)
+
+Terminology:
+    - size is the number of elements currently stored in the ArrayList
+    - capacity = number of cells currently available to accept objects 
+
+Data must be contiguous and zero-algined 
+    - contiguous = no null spaces b/w elemnts 
+    - zero-aligned = cells must be populated starting at index 0
+    - we often have to shift data around when we modify the arraylist to keep these properties
+
+- We also typically store the size of the ArrayList and modify it as it changes
+
+
+Adding to Back:
+    call add() method
+        - we add to index size (O(1)), then increment size
+        - if we have reached capacity, we first resize the array list (O(n)), then we add at index size and increment size 
+    - with typical analysis, adding to the back after resizing is worst case => O(n)
+        - this is pessimistic; resizing is rare
+        - for every add up to n, it was O(1); then at add # (n+1), it is O(n)
+        - we can do an ammortized analysis ("distributing" the O(n) across the O(1))
+        - so we say that with ammortized analsysis, adding is O(1)
+
+Adding at any index:
+    cost will be O(n)
+    - we have to shift all the data down by 1 to open up the new cell for inserting the new data 
+    (we do this to meet the requirement that data is contiguous)
+
+Removing:
+    Removing from back is O(1) 
+        reset the value at index size, then decrement size by 1 
+    Removing from any other index is O(n)
+        we have to remove the value then shift all subsequent values back by 1

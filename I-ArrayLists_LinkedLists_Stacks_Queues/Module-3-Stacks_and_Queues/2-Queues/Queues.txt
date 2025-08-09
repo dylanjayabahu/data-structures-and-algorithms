@@ -1,0 +1,57 @@
+Queue = FIFO instead of LIFO
+    like a line at a store
+
+Operations:
+    - void enqueue(T) //add data to the back queue
+    - T deque() //retrieves and removes data from the front of the queue
+    - T peek / top //retreives data from the front of queue (doesnt remove)
+    - bool isEmpty()
+    - void clear()
+
+Not designed to serach/abstract acces/add/remove
+
+
+Linked List Queue:
+    - head/tail needed
+        Head: add in O(1), remove in O(1)
+        Tail: add in O(1), remove in O(n)
+
+        So it makes sense not to remove from Tail
+        that is, make the head the front of the queue and the tail the back of the queue
+        
+        - enqueue at the tail, dequeue from the head 
+    
+    We use SLL for Queue 
+        - DLL is not necessary and uses extra memory overhead 
+    
+
+Array Backed Queue:
+    - we don't use arraylists; adding/removing from the front is O(n) 
+
+    - instead we use wrap-arround/circular implementation 
+        need size, capacity, frontIndex, backIndex fields 
+
+        backIndex is the last element index + 1 
+            which equals (frontIndex+size)%capacity
+        
+        front, back are initialized to 0
+
+    
+    enqueue 
+        - add new data to index back 
+        - increase back by 1 and size by 1
+            - back = (back+1)%capacity //wrap around 
+        - front doesnt change
+    
+    dequeue:
+        - remove from index front 
+        - decerement size by 1, increment front by 1
+            - front = (front+1)%capacity 
+        - back doesnt change 
+
+    
+
+again, as with stack, for both impelmentations we get O(1) for all operations (albeit O(1) ammortized for a few in the aray backed queue)
+
+
+side note: array implementations tend to perform better because of spatial locality 

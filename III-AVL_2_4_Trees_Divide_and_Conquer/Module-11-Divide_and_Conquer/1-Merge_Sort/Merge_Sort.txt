@@ -1,0 +1,60 @@
+Merge Sort: divide and conquer algorithm. Splits the list in half, then recursively merge sorts each list, then merges the sorted lists together
+
+
+Divide and Conquer Algorithms:
+    Split the big problem into smaller subproblems
+    The subproblems are solved, then put back together for the big solution
+
+    For both quicksort and mergesort, we divie the subarrays until they have size 1, at which point they are sorted
+
+
+def mergesort(array){
+    if (array.length == 1){
+        return;
+    } //can also have a length 2 base case, but not needed
+
+    length = array.length
+    mid = length//2 
+
+    left = array[:midIndex]
+    right = array[midIndex:] //if odd number of data, odd guy out gets put in right (doesnt rlly matter)
+    mergesort(left)
+    mergesort(right)
+
+    //merge left and right 
+    i = 0
+    j = 0
+    while (i < left.length and j < right.length){ 
+        if (left[i] <= right[i]){ //use <= here so the left element gets put first if equal (stable)
+            array[i+j] = left[i]
+            i++
+        }
+        else{
+            array[i+j] = right[j]
+            j++
+        }
+    }
+
+    //handle the "free rides" as mr. schattman would say
+    while (i < left.length){
+        array[i+j] = left[i]
+        i++
+    }
+    while (j < right.length){
+        array[i+j] = right[j]
+        j++
+    }
+}
+
+
+mergeSort analysis:
+    Best/Worst/Average case is O(nlogn)
+    It is stable (because of the <=)
+    Not adaptive tho (still splits all into 1s regardless of any existing sorted order)
+    Out of place - O(n) additional space.
+
+
+Understanding why O(nlogn)
+    In splitting the tree, we get to ~logn levels
+    at each level, we are mergin a total of n items
+    so n*logn

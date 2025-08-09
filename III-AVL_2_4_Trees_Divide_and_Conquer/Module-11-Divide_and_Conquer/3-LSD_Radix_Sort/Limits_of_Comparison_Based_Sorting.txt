@@ -1,0 +1,37 @@
+Prove that O(nlogn) is optimal 
+
+"For any deterministic sorting algorithm that is always correct, A, there exists some input x such
+that A(x) takes Omega(nlogn) comparisons to execute, and therefore its worst case time compleixy is 
+O(nlogn)"
+
+note that this applies to any algorithm (not random and always correct)
+
+
+Proof (informal)
+- each comparison only tells u so much about the input config 
+- since the algo must always sort correctly, it must distinguish b/w every possible config 
+    if not, then the swaps/moving made would not be unique to that input and it would be wrong; non distinct operations for distinct inputs 
+
+- There are n! different configurations
+
+- Just like in the game 20 questions (where u can eliminate half each time with a query)
+    each comparison is like a query that yeilds ai<=aj or ai>aj 
+In this way, we can think of the sorting algo as a decision tree:
+    - each node is a decision/query/comparison 
+    - each leaf is a potential outcomes (the sorted configurations)
+        - there will be leaves on diff levelss
+    the worst case is the leaf with the longest path from the root (i.e. the height of the decision tree)
+
+    we must now show that this longest path is at least Omega(nlogn)
+    at each comparison/node, we half the search space. 
+    So the longest path will be log(n!)
+    this can be approximated to nlogn via stirlings approximation.
+
+
+We have now proven the original statement. 
+
+We can also prove the following in a similar manner so that it extends to potential random and also average case performance:
+
+
+"For any (potential random) sorting algorithm that is always correct, A, the number of comparisons A must take on average 
+is at least Omega(nlogn), meaning the average case is O(nlogn).

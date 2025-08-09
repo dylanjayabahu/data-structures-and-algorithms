@@ -1,0 +1,14 @@
+cannot access element at specific index in linked lists directly 
+    - the reach/scope of a node is only to the next node 
+
+
+u have to traverse the linked list w/ while loop until current node is not null 
+
+for an iterator, overwrite the iterator method, returning new LLIterator<>();
+- create the LLIterator class:
+    - private Node<T> curr; 
+    constructor = etting curr to head 
+    hasNext returns if curr.next is not null 
+    next returns the data in curr, then sets curr to curr.next
+
+    note that for iterators u cant modify the list as ur iterating 

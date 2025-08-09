@@ -1,0 +1,24 @@
+Linear probign suffers from primary culstering(turtling)
+
+
+Quadratic Probing: same idea as linear probing but add h^2 instead of h 
+    newIndex = (h^2 + oldIndex) % backingArrayLength
+    ^ Attempts to break up the clustering of data in contiguous chunks that make collisisns more likely, which makes the chunk larger, etc. (positive feedback loop)
+
+
+
+    ^ note that this method will not always find open cells
+        So, we dont stop finding new indexes when h reaches the length of the backing array to avoid an infinite loop 
+    
+    If we havent found any open cells, we can:
+        - continually resize until we find an open cell 
+            we have to rehash the new keys into a new table, but rehashing itself can cause the infinite probign issue 
+                you would have to setup resizes within resizes. 
+        - impose conditions on the table so that this scenario never happens (i.e. we find open cells if they exist)
+            use number theory - very nice 
+            e.g. if u make sure table length is prime, and max load factor is 0.5, you can guarantee no infinite loop/unfound open cells
+
+
+Secondary Clustering:
+    Suffers from secondary clustering (same thing as linear clustering but tehc lusters arent back to back, they collide in quadratic steps rather than linear steps)
+

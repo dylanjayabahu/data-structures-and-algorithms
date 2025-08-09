@@ -1,0 +1,121 @@
+Note that we can draw to identical graphs in many diff ways; its just the connections b/w vertices that matter
+
+
+Graph ADT:
+    Procedures
+         - vertices() //returns set of all vertices
+         - edges() //returns set of all edges
+         - numVertices() 
+         - numEdges()
+         - endVertices(edge e) //returns the endpoint vertices of the given edge 
+         - getEdge(vertex u, vertex v) //returns the edge that connects u and v if it exists, else null 
+         - numEdges(vertex v) // number of incident edges; all (outgoing) edges connected to that vertex
+         - opposite(vertex v, edge e) // returns the other vertex, u that is incident to edge e
+
+
+         - insertVertex(data d) //creates and returns a new Vertex storing data d 
+         - insertEdge(vertex u, vertex v, edge e) // creates and returns a new edge e from u to v 
+         - removeVertex(vertex v) // removes v and all incident edges for v 
+         - removeEdge(edge e) // removes the edge
+
+
+         ^ these rely on auxiliarry data types, chosen based on what procedures youll be using (most often)
+    
+
+
+
+Graph Representations:
+    Adjacency matrix 
+        has all the vertices along the rows and cols 
+        the value of matrix[u][v] is an (directed) edge from u to v  
+            ^ for undirected edge just put in at [u][v] and also at [v][u]
+            if weighted, the weights are the entries in the matrix; else just 0/1 will suffix
+        if no value (null or 0 or something), no edge from u to v
+
+        O(|V|^2) space
+
+        works well with dense graphs
+        adding a vertex to this representation is not efficient at all; need to create a new matrix and reinsert everything
+
+
+    Adjacency list
+        a map from each vertex to a list of incident edges 
+        isolated vertices just map to an empty list of edges
+
+        O(|V| + |E|) space
+
+        works well with spares graphs
+
+
+    Edge list
+        a list of all the Edges
+            each edge points to the origin and destination vertices
+        no way to represent isolated vertices
+
+        O(|E|)
+
+
+    
+    Diff representations work better for diff algos 
+
+    
+
+
+public class Vertex<T> {
+    private T data; 
+
+    public Vertex(T data){
+        if (data == null){
+            throw new IllegalArgumentException("No null data");
+        }
+        this.data = data;
+    }
+
+
+    public int hashCode(){
+        return data.hashCode();
+    }
+
+    //add equals, getdata, tostring, etc.
+}
+
+public class Edge<T> implements comparable<Edge<? super T>> {
+    private Vertex<T> v;
+    private Vertex<T> u;
+    private int weight;
+
+    public Edge(Vertex<T> u, Vertex<T> v, int weight){
+        if (u == null || v == null){
+            throw new IllegalArgumentException("No null vertices");
+        }
+
+        this.u = u;
+        this.v = v;
+        this.weight = weight;
+    }
+
+    //add hashCode, equals, getweight, get u, getV, tostring
+}
+
+
+
+public class Graph<T> implements comparable <Edge<? super T>> {
+    private Set<Vertex<T>> vertices;
+    private Set<Edge<T>> edges;
+    private Map<Vertex<T>, List<Edge<T>>> adjacencyList; //if we were using adjacency list representaiton 
+
+    public Graph(Set<Vertex<T>> vertices, Set<Edge<T>> edges){
+        if (vertices == null || edges == null){
+            throw new IllegalArgumentException("No null arguments");
+        }
+
+        this.vertices = new HashSet<>(vertices);
+        this.edges = new HashSet<>(edges);
+        this.adjacencyList = new HashMap<>();
+
+        //add vertices to adjacencyList
+        //add edges to adjacencyList
+    }
+
+}
+

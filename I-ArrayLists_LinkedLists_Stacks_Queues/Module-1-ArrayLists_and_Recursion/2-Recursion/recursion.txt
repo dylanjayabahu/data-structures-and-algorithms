@@ -1,0 +1,35 @@
+Recursion = method that calls itself
+    - base case(s)
+    - recursive case(s)
+    - progress to base case 
+
+Finding the subproblem - if problem can be brokein into subproblems, recursion can be helpful
+
+e.g. problem = b^n
+    - substructure 1: b^(n-1) * b; b^0=1
+        this runs in O(n) assuming multiplication is O(1); each recursive call is O(1) and there are n recursive calls
+    - substructure 2: b^n = b^(n//2) * b^(n-n//2); b^0 = 1 [basically b^n = b^(n/2) * b^(n/2) but handling non even n values]
+        this runs in O(logn) assuming multiplicatino is O(1); each recursive call is O(1) and there are logn recursive calls
+        much better than substructure 1
+easiest to write the base cases 
+avoid overlapping base cases 
+separate code into clean cases (base/recursive)
+
+
+Anothre e.g.:  find GCD of x and y 
+    substructure 1: Euclid's Algo (og); subtraction version
+    substructure 2: Euclid's Algo; division version (modulo)
+    substructure 3: binary GCD; both numbers are divided by 2
+
+use Euclid modulo GCD (more efficient that euclid subtractiuno)
+    given x>y
+
+
+    x = q*y+r
+    r = x mod y 
+    y>r
+
+    gcd(x, y) = gcd(y, r)
+
+    gcd(z, 0) = z <-- base case 
+

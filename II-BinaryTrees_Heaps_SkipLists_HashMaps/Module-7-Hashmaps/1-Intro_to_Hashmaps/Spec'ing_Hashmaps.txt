@@ -1,0 +1,41 @@
+Collisions are the source of most inefficiencies in Hashmaps
+ We spend a lot of time on handling collisions, but also focus on avoiding them in the first place
+
+
+Minimizing Collisions:
+    - Hash Function:
+        h: K -> Z (maps keys to integers)
+
+        if two keys are equal, their hash evaluation must also be equal 
+
+        so technically, a hash function returning 0 works. But its not very good. 
+
+        A good hash function ahs the reverse as close to true as possible:
+            if two hash functions are equal, the keys should also ideally be necessarily equal 
+            ^ not always possible without infinite memory
+
+        Hashing Strings 
+            - One option is to add the numbers that correspond to each char of the string 
+                Ok, but doesnt take into account the order (anagrams will have the same hash code)
+            - Instead, we can multiply each number by 10^position
+                E.g. 2*10^3, 1*10^2 ... 
+            
+        Hash functions are written in java with hashcode(), so java tells u to override hashcode whenever u override equals
+            Since two equal objects should have the same hashcode 
+    
+
+    - Compression Function:
+        take the haschode and fit it into the size of the backingarray
+        most common is to just mod by table size (capacity)
+
+
+    - Table Size:
+        Have a prime table size minimize collisions due to compression (modding by prime reduces collisions -> no common factors)
+            However, modding by primes is inefficient (and checking if a number is truly prime is also ggs, so we use a lazy attempt at getting a prime)
+        Having a power of 2 table size makes mod very efficient and is therefore also a popular choice
+    
+    - Load factor:
+        Load factor = size/cap 
+        Higher load factor = more entries filled = higher likelihood of collision 
+        We can keep a low load factor to basically guarantee O(1) search, but then we will be resizing a lot and using a lot more memory  
+

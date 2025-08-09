@@ -1,0 +1,29 @@
+Ammortizing = spreading the cost out over time
+
+In the case of adding to the end of an ArrayList, the worst case is O(n), when size=capacity
+    - but the previous cases were all O(1)
+
+We can say the ammortized cost is as follows:
+    Ammortized_Cost = (Total cost of all operations)/(# operations) = (2n)/n = 2 = O(1) for adding index within capacity
+
+In most ArrayList implemenations, when a resize occurs, capacity is doubled. 
+- for every sequence of n operations, we trigger a resize at most once 
+- the cost of resizing is 2n (1 unit for accessing old entry, 1 unit for adding in new memory)
+
+New ammortized cost (including resizing):
+    Ammortized_Cost = (Total cost of all operations)/(# operations) = (2n + 2n)/n = 4 = O(1)
+
+Therefore, adding to the end of an arraylist is O(n), or ammortized O(1)
+    O(f(n))* is used to denote the use of ammortized analysis
+
+
+
+Hard vs Soft Removal:
+    - Hard removal = ensurnig data is completely removed from the backing of the structure 
+    - Soft removal = leave the data in and remove it via implementation
+
+    I.e. end of arraylist is controlled by Size. To softly remove from end we can just decrease size by 1. 
+    But to hard remove, we would set the element at last index to be null so it doenst appear in the backing array of the arraylist implementation
+
+    - Hard removal is expected; if a user removes sensitive data we want it gone for sure so that no adversaries can access it
+        - also makes implementation cleaner 

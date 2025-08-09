@@ -1,0 +1,48 @@
+Bubble Sort 
+    Iterative sort; bubbles the largest element to the top w/ each iteration 
+
+
+def bubble sort{
+    stopIndex = array.length - 1
+    while stopIndex > 0{
+        for i = 0 up to stopIndex-1{
+            if array[i] > array[i+1]: swap(i, i+1)
+        }
+        stopIndex--;
+    }
+}
+
+Optimizations:
+    - keep track of number swaps made. If no swaps made in a pass, terminate (already sorted)
+        def bubble sort{
+            stopIndex = array.length - 1
+            while stopIndex > 0{
+                swapsMade = false
+                for i = 0 up to stopIndex-1{
+                    if array[i] > array[i+1]: swap(i, i+1); swapsMade=true;
+                }
+                stopIndex--;
+
+                if !swapsMade: return;
+            }
+        }
+
+
+    - keep track of the last swapped element. Every element after that is already sorted, so we can set stopIndex to that 
+        def bubble sort{
+            stopIndex = array.length - 1
+            while stopIndex > 0{
+                lastSwap = 0
+                for i = 0 up to stopIndex-1{
+                    if array[i] > array[i+1]: swap(i, i+1); lastSwap=i;
+                }
+                stopIndex = lastSwap
+
+                if !swapsMade: return;
+            }
+        }
+
+Bubble Sort Analysis:
+    Best case: O(n) with optimizations (already sorted array)
+    Average/Worst case: O(n^2)
+    Stable, Adaptive, and In-place

@@ -1,0 +1,58 @@
+Binary Tree 
+    - each parent can have either 0 or 2 children 
+    - children are called left or right     
+    - left child proceeds right child 
+
+    Node contains data and references to the left/right children 
+        - can also (optionally) store: 
+            reference to parent 
+            depth 
+            height 
+
+    Full Binary Tree: each node has exactly 2 children or 0 children; every node except leaves has 2 children 
+    Complete Tree: Every level is completely filled except the bottom one; the bottom one is filled left to right 
+        - easier to back wit arrays this way 
+    Degenerate Tree: each node has only 1 node (Except the leaf)
+        - basically a linked list; considered the worst case binary tree for this reason 
+
+
+    Node References:
+        - references to child nodes, or references to null if no child 
+            Some implementations use dummy nodes; we do not cover that here 
+
+    Binary Tree Traversal:
+        create a recursive method:
+
+        traverse(root){
+            if (root!=null){
+                traverse(root.left);
+                traverse(root.right);
+            }
+        }
+
+
+
+Binary Search Tree (BST): binary tree with additional properties 
+    - left child data < parent data < right child data 
+    - all data in left subtree must be less than node data 
+    - all data in right subtree must be greater than node data 
+
+    for this course we dont deal with duplicate data 
+
+    Since we rely on > / < relationships, the data must implement the Comparable interface/implement compare to 
+
+    With BST, each comparison tells u if the data is left/right; u discard half the data each time => O(logn) for searching a BST 
+        - it is guaranteed O(logn) for a complete binary tree
+        - but time complexity goes to O(n) for a degenerate tree 
+
+
+
+Traversal Algorithms: (applied to binary trees in general, but more insight from BST)
+    Depth Traversal (stack based)
+        Preorder Traversal
+        Inorder Traversal
+        Postorder Traversal 
+
+
+    Breadth Travesrsal (Queue based)
+        Levelorder Traversal 

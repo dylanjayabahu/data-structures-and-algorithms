@@ -1,0 +1,34 @@
+Binary Heaps
+    - binary tree  (not BST)
+    - the tree must be complete <- makes it ez to implement with arrays
+
+    Order Property:
+        Min or max heap
+
+        Min Heap:
+            - smallest element is at the root; children are larger than parent
+        Max Heap:
+            - largest element is at the root; children are smaller than the parent
+
+
+    By convention, when using an min/max heap backed by an array, index 0 is ommitted and indexing starts at 1
+
+    Nodes are numbered left to right beginning with 1 (level order traversal order)
+        - so in the array, the node number corresponds to the index 
+        - since the tree is complete, there are no gaps in the array 
+
+    We can compute the indicies of parents and children 
+        - given a node at index n, its left child is at index 2n; right is 2n + 1
+        - given a node at index n, its parent is at n//2
+
+        ^ this is why we begin the heap at index 1; the index computations work well this way 
+    
+    Index size gives the last element 
+
+
+Heap Uses:
+    - Designed for accessing the root 
+    - Not designed for arbitrary searching (no better than searching an arraylist)
+    - Often used for backing priority queues; always keep largest/smallest data at the root for ez access 
+        - O(1) to find highest priority 
+

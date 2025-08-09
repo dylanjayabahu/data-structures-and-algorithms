@@ -1,0 +1,76 @@
+Singly Linked List (SLL)
+    - ArrayLists were dynamic in name only - they had to be manually resized
+    - Linked lists dont require resizing operations; can expand indefinitiely
+    - Implements the list ADT
+    - Stores data in nodes; not contiguously in memory; nodes are linked with pointers
+    - SLL - single pointer to the one after it  
+    - Head node points to first node in list so we can traverse it 
+        - null head = empty list 
+
+
+Nodes:
+     - each node has a data field and a next field (for singly linked)
+     - typically implemented as a private class within the SLL class 
+     - often a constructor is set where u can pass data and a next node, but also just data (the next node defaults to null)
+
+    
+In the SLL class, all we keep track of is the head
+
+Adding to front:
+    - make new node with the data to add 
+    - set the new node's next to point to the head 
+    - set the head to be the new node
+
+    O(1)
+
+
+Printing SLLs: (toString)
+    - declare a toString for the node class 
+    - start with an empty string 
+    - traverse through the linked list [done with a current pointer], adding the node.toString to the empty string (separated by commas or whatever)
+    - return the string created
+
+
+Adding to back;
+    - make new node with the data to add 
+    - traverse the list to the last node
+    - set the last node's next to point to the new node
+
+    - edge case: empty list 
+        - just like adding to front; set head to be the new node
+
+    - O(n) (we have to traverse the whole SLL to the end)
+    
+
+
+Removing from front:    
+    - Set head to be the second element of the list 
+     (head = head.next)
+        - note this works even if empty list
+
+     very simple; O(1)
+
+
+    not necessary to delete the og head - Java has garbage collection 
+        - Essentially frees up any memory that is not accessible
+
+
+Removing from back:
+    - traverse the list to land on the node before last (current.next.next != null)
+    - set the second last node's next to null
+
+    edge cases:
+        - if empty list, just return null
+        - if list of size 1, current.next.next doesnt work; return the head and set head to null
+
+
+Optimization
+    - keep track of size variable
+        size = 0 initially, increment/decrement size accordingly
+        can use size when checking for edge cases   
+    - have a tail pointer in addition to a head pointer
+        no longer have to traverse the whole list to get to end, can get there directly w/ tail 
+        if list is empty/becomes empty, head and tail are null; with list having 1 element, both head and tail point to same node
+
+Adding generic types:
+    - assign generic types to the SLL and the node class 

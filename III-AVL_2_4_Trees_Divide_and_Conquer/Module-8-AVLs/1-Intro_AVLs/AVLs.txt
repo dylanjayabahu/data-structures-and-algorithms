@@ -1,0 +1,29 @@
+AVL trees: subtype of BSTs; have the same order and shape properties, but also an additional shape property to restrict height 
+
+    - named after George Adelson-Velsky and Evengii Landis
+
+    -  often compared with red/black trees (not covered)
+        AVLs are faster for lookup intensive, slower for adding and removing. 
+
+
+    Self balancing; eliminates the O(n) worst case; worst case for search/add/remove is O(logn)
+        Rotations performed on nodes that are unbalanced
+
+
+        Height(node) = max(Height(left), Height(right)) + 1
+            Height(leaf) = 0; Height(null) = -1
+        
+        BalanceFactor(node) = Height(left) - Height(right)
+
+        Balance Factor and Height are stored inside the node, so u can access them in O(1) rather than O(n)
+
+        Updating Height/BF for each node:
+            Use the stored height in children to calculate; null child has height of -1
+            ^ requires children height to be correct; calculate from bottom up 
+
+            When u make a change, only nodes on the path to the changed node need to be updated
+        
+        Note that child BFs arent used to calculate anything; only child heights
+
+
+    Unbalanced:if |BF| > 1; BF of -1, 0, or 1 is balanced

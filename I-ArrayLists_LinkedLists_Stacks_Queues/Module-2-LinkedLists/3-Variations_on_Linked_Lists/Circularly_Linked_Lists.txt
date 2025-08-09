@@ -1,0 +1,70 @@
+Circularly LInked Lists (CLL) = head and tail connect to each other rather than null 
+    - the last node's next reference points to the head
+    - useful for modelling things with circular behaviour; e.g. music playlist or player turn order 
+    - head is necessary, tail is not required, and rlly no reason to do so 
+
+instead of iterating until current.next is null, we iterate until next current.next is head 
+    - we can also check size if we are maintaining that variable
+
+can be singly/doubly linked 
+
+
+to add to "front" of CLL:
+    - make new node 
+    - set new nodes next to point to head 
+    - set the last node in the CLL's next to point to the new node 
+        - unfortunately with singly CLL we have to traverse all the way to the last node to do this (O(n))
+
+    ^ this method is inefficient 
+
+
+    we can do it cleverly and more efficiently:
+    - make a new node without data in it 
+    - insert the new node right after the head 
+        - set new node's next to be what head's next is 
+        - set head's next to point to new node 
+    - now, copy the data from head to the new node 
+    - then, set the new data we want in the head 
+
+    O(1) 
+
+to add to the back of cll:
+    - naively, we could do this in O(n) by traversing to the back of the CLL 
+
+    - instead, we can do a similar trick as before 
+    - make a new node without data in it 
+    - insert the new node right after the head 
+    - copy the data from head to the new node 
+    - fill the new data we want in the head 
+    - reset the head to be the new node now (the previous head has now become the tail)
+
+
+
+removing from front:
+    - bit tricker now - we cant just move the head reference and let garbage collection pick the old head, 
+        since the old head is still pointed to by the tail 
+    
+
+    - instead:
+        - store the data u want to return 
+        - copy the data from head.next into head
+        - set the current head's pointer to head.next.next 
+        - now head.next can be garbage collected 
+        - now O(1)
+
+        edge case:
+            - if size 1: set head to null and head.next to null 
+
+removing from back:
+    - no special O(1) technique 
+    to remove the last node, u need to access the node bfore last and remove its pointer
+    only way to reach this node is to traverse the entire list 
+    change the second last nodes .next to be the head 
+
+    the old last node can be garbage collected 
+
+removing from middle of CLL 
+    - same as removing from midlde of SLL
+
+
+this gives us a teaser at more complicated linked structures like trees and graphs

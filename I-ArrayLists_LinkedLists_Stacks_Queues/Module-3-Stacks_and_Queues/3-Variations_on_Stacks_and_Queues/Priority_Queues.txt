@@ -1,0 +1,23 @@
+Priority Queues: ADT, also linear
+    when removing from a priority queue, the element with highest priority is returned 
+    (as opposed to the last added/first added element)
+
+    like the waiting room in a hospital 
+
+    often used to retrieve the min/max values in a data set 
+        - whether low/high valuse have higher priority is implementation specific 
+
+    the data stored is comparable so we know which item his higher/lower priority 
+
+
+    Challenges 
+        - efficiently rank the data with highest priority 
+            searching after each add/remove is very slow 
+            Solution: heaps 
+
+
+To maintain a priority queue, we could use a sorted list 
+- peeking/popping would be O(1), but adding would be O(n)
+- with our current knowledge, implementing this efficiently is out of reach 
+
+

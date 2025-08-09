@@ -1,0 +1,134 @@
+Largest Contiguous Sum
+
+    Suppose we have an array of integers of length N. 
+
+    We'd like to compute the largest contiguous sum of the array, which is a block of numbers for which the sum is maximized. 
+
+    For example, suppose our array is [-1, 2, -1, 4, -3, 1, 3]. Our largest contiguous sum is denoted having a value of 6. 
+
+    In the worst case, you can always choose the empty sum, which gives a value of 0. 
+
+    Come up with a dynamic programming algorithm to compute the value of the sum.
+
+
+
+
+    Recursive Structure:
+        LargestSum ending at i = max(largestSum ending at i-1 + arr[i], arr[i])
+
+    //O(n) space algo
+    Algo:
+        S = [max(0, arr[0])] //S[i] is the largest subsequence ending at i 
+
+        max_len = S[0]
+
+        for i=1 up to n:
+            S[i] = max(S[i-1] + arr[i], arr[i])
+
+            max_len = max(max_len, S[i])
+        
+        return max_len
+    ^ can be further simplified to not store all of S but just the previous one 
+
+
+    //O(1) space algo 
+    Algo:
+        curr = max(0, arr[0])
+
+        max_len = curr
+
+        for i = 1 up to n-1:
+            curr = max(curr + arr[i], arr[i])
+            max_len = max(max_len, curr)
+        
+        return max_len 
+
+
+
+
+
+
+
+Longest Increasing Subsequence
+    Suppose that we have an array A of length n as input consisting of integers. 
+    A subsequence of the array is a sequence of some of the array entries in the order that they appear. 
+        For example, suppose that we have the array [1, 7, 3, 5, 2, 8, 10, 24, -1, -5, 4]. 
+        Then, [3, 2, -5, -5] is a valid subsequence since the numbers appear in the sequence in array order, 
+        but [1, 7, 10, 8] is not a valid subsequence. 
+        
+    An increasing subsequence is a subsequence where the numbers go in (strictly) increasing order. 
+    
+    Come up with a dynamic programming algorithm to compute the length of the longest increasing subsequence of the array.
+
+
+
+
+    Recursive Structure:
+        let DP[i] be the length of longest increasing subsequence up to i
+        DP[i] = max DP[j]+1 in DP[:i-1] such that arr[j] < arr[i]
+            if no arr[j] < arr[i], then DP[i] = 1
+
+    
+    def LIS(arr):
+        n = len(arr)
+        dp = [1 for _ in range(n)]
+
+        maxLIS = 1
+
+        for i in range(n):
+            m = 0
+
+            for j in range(i):
+                m = max(m, dp[j]) if arr[j] < arr[i] else m 
+
+            dp[i] = m+1
+
+            maxLIS = max(dp[i], maxLIS)
+
+        return maxLIS
+
+
+
+
+
+
+Rod Cutting 
+    We have a rod of length n centimeters. 
+    We'd like to chop up this rod into smaller segments to sell at the market
+    The market only accepts rods of lengths l1 - lk as marketable items. 
+    All of these lengths are integral in nature. 
+    Rods of length li sell for cost ci. 
+    Come up with a dynamic programming algorithm to maximize our potential profit.
+
+
+    let dp[i] be the best way to split a rod of length i (cost)
+
+    dp[i] = max of {
+                    dp[i-l1] + c1 
+                    dp[i-l2] + c2
+                    dp[i-l3] + c3
+                    ...
+                    dp[i-lk] + ck
+                   }
+
+
+
+    def rodCutting(n, l, c):
+        k = len(l) //also = len(c)
+        dp = [0 for _ in range(n+1)]
+
+        for i in range(n+1):
+            
+            bestPrice = 0 
+
+            for j in range(k):
+                if i-l[j] >= 0:
+                    bestPrice = max(bestPrice, dp[i-l[j]] + c[j])
+            
+            dp[i] = bestPrice
+
+        return dp[n]
+
+    
+
+

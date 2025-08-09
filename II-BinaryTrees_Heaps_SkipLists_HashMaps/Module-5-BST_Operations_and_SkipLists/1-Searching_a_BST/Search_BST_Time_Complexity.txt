@@ -1,0 +1,18 @@
+Best Case Analysis
+- the root node is the value we are searching for 
+- O(1)
+
+^ best case analysis isnt rlly useful
+
+
+Worst Case Analysis
+- the tree is a degenerate tree
+- O(n) 
+
+
+Average Case Analysis
+- not the average (mean) like with ammortizaion; the probabilitic average; expected performance 
+- average out the performance in all cases of the BST structure => O(logn)
+
+
+Note that logn is rlly good - it is significantly closer to O(1) than to O(n)

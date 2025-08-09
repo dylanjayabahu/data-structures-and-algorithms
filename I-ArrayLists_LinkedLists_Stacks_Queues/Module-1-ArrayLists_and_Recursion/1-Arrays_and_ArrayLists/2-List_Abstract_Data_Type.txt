@@ -1,0 +1,23 @@
+Abstract Data Type (ADT) = a model description of a data type that is defined by its behaviors and operations
+    - they set the framework for what operations are available and what they do, but they leave the implementation details themselves Abstract
+
+Data structures = actual concrete implementations of data handling
+
+List ADT: sequence of data values that are accessible via indexing.
+    Required operations:
+        - addAtIndex(int i, T data) => adds data at index i; any data after i is shifted one over to make room
+        - removeAtIndex(int i) => removes data at index i; any data after i is shifted one backward 
+        - get(int i) => returns the data at index i 
+        - isEmpty() => returns if the list is isEmpty 
+        - clear() => reset to initial config with no data
+        - size() => return the number of elements currently stored in the list
+    Other additional operations include:
+        - addToFront(T data)
+        - removeFromFront() 
+        - addToBack(T data) 
+        - removeFromBack()
+
+        ^ useful when transitioning to topics like stacks/queues
+    
+Two data structures that impelement the List ADT: ArrayLists and LinkedLists
+    - choosing which data structure depends on the use case; each has pros and cons 

@@ -1,0 +1,45 @@
+Deque = Double Ended Queue 
+    - no single expected removal behaviour (Not LIFO/FIFO)
+
+    - you can add/remove from either end of the data structure 
+
+    Operations:
+        void addFirst(x)
+        void addLast(x)
+        x removeFirst()
+        x removeLast()
+        bool isEmpty()
+        int size()
+        void clear()
+
+    ^ all opps can be done in O(1)
+
+    does not support adding/removing at index or searching 
+
+Array Backed Deque:
+    Use circular/wrap-around method as with an array-backed queue 
+
+
+    Front/Back/Size/Capacity variables
+
+
+    addLast(data) and removeFirst() are just like they are in Array-backed Queue 
+        - when incrementing back/front, they wrap around from the back to the front 
+
+    addFirst(data) and removeLast() are similarly implemented, but this time wrapping from front of arr back 
+        - cant use regular % - java's mod behaves diff with negs 
+            javas mod gives the signed remainder closest to 0, not the smallest positive remained 
+
+
+    add/removes are still ammortized O(1)
+
+
+Linked List Backed Deques:
+    - Singly linked lists would be very inefficient 
+    - Doubly linked lists used instead 
+
+    first element operations (add/remove) are done at the head 
+    last element operations (add/remove) are done at the tail 
+    ^ you could swip this but it dont matter and its more intuitive this way 
+
+

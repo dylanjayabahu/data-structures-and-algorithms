@@ -1,0 +1,44 @@
+
+Dynamic Programming: Making Change
+
+    Consider the following problem. 
+    We have a bunch of types of coins c1 ... cn of differing monetary value. 
+    The coins are sorted in descending order, and they have values v1...vn respectively. 
+    
+    We'd like to make exact change for some target value V using the fewest number of coins. 
+    You may assume that we have an infinite number of each coin type. 
+    
+    Make a dp algo to compute the smallest number of coins needed to make exact change if possible. 
+    If it's not possible with the coin types we have, then we'd like the algorithm to let us know that.
+
+
+
+    basically same as rod cutting
+
+    let dp[V] be the number of coins needed for value V
+
+    dp[i] = min of {
+                    dp[i-v1] + 1
+                    dp[i-v2] + 1
+                    dp[i-v3] + 1
+                    ...
+                    dp[i-vk] + 1
+                    }
+
+    
+
+    def makingChange(V, c):
+        k = len(c)
+        dp = [inf for _ in range(V+1)]
+
+        for i in range(V+1):
+            
+            numCoins = float('inf')
+
+            for j in range(k):
+                if i-c[j] >= 0:
+                    numCoins = min(numCoins, dp[i-c[j]] + 1)
+            
+            dp[i] = numCoins
+
+        return dp[V] //will be inf if not possible

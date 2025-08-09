@@ -1,0 +1,27 @@
+Kruskal's Algorithm
+    - finds the MST of a undirected, connected graph 
+    - naturally discovers if graph is not connected and computes MSF instead
+    
+
+    Algo:
+        - add every edge to a priorityQueue
+        - while PQ nonEmpty and MST size not reached: //for v vertices, MST will have v-1 edges
+            dequeue edge from PQ 
+            if edge doesnt form cycle, add edge to MST 
+        
+    
+    very simple and intuitive 
+
+
+Cycle Property:
+    Cycle property motivates Kruskals Algo just as Cut property motivates prims algo 
+
+    If we look at heaviest edge of any cycle, that edge will not be included in the MST 
+    
+    In kruskal's algo, if we come to an edge that forms a cycle, it must be the heaviest 
+        since all the lesser weighted ones have already been added 
+
+We cannot use the visited set as with all the others 
+    We arent starting with a source and working out - we are building clusters globally across the graph 
+
+    As such we need a new way of storing - namely the disjoint set 

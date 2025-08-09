@@ -1,0 +1,69 @@
+Unique - probability based
+
+
+Structure:  
+    Levels of linked lists 
+        Skiplist node: data, left+right+down_up pointers 
+            - sometimes implemented with just data, right and down 
+        
+        Each level has a -inf node as the head and a +inf node as the tail 
+
+    - The head of the overal skiplist is the top left negative infinity node 
+
+    - The linked list is sorted in ascending order at each level 
+
+    - Each level contains a subset of the data from the level directly below
+
+    - The lowest level (level 0) contains all of the data 
+
+    - Elements can exist on more than one level if they are promoted when adding 
+
+Probability:    
+    - Then number of times a node is duplicated depends on coin flip
+        heads = promote, tails = stop promoting 
+    
+    Hence, the chance of reaching level i is (1/2)^i
+
+
+    Similarly, all the data is on level 0
+        Expected Half the data is on level 1 
+        Expected A fourth of the data is on level 2
+        Expected (1/2)^i of the data is on level i
+
+    On average, there are logn layers in the skip list  
+        - as such, most implementations cap at logn Levels, in the rare case of promoting a ridiculous number of times 
+
+
+
+
+Search:
+    It is called a skip list because the goal is to be able to skip over a lot of data when traversing
+
+    - begin search at the head (top left infinity node)
+    - look at the node to the right:
+        - if data < right, continue moving right on this level
+        - if data > right, move down a level 
+        - if data == right, we found it
+    - if we reach the bottom level and we want to move down, the data isnt in the skiplist
+        - this is where we would add 
+
+
+Efficiency
+    - dictated by the distribution of data 
+    - in best/average case: searching,adding,removing is all O(logn)
+        space complexity is O(n) [n + n/2 + n/4 + ... = 2n = O(n)]
+    - in the worst case: searching,adding,removing is all O(n)
+        space complexity is O(nlogn) [n + n + n + ... (logn times) = nlogn]
+
+
+Purpose:
+    - Useful in simple concurrent access operations
+        - concurrent access = u have two things working w/ the data structure simultaneously 
+        - if someone is removing while someone is searching the search could yeidl the wrong result for a BST
+        - with skip list, the result of search will be fine 
+        - Note skiplists arent usually what u use if u want concurrent access however 
+
+    - Simple to implement 
+        - no need for balancing for same performance in average case (although worst is the same as an unbalanced BST)
+
+    - Intro to randomized computing

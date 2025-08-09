@@ -1,0 +1,30 @@
+Bloom filter is a data structure that uses hashing 
+
+imagine we have a database that returns stuff, e.g. top 10 results of a search 
+
+sending a request to search, searching, and sending the request back would be slow
+we would ideally want to not send the request at all if it will yeild no results 
+
+We ask the question: "is this tag in the database?"
+    we can do this by allowing false positives (but not false negatives)
+
+    if the bloom filter answers no, the tag is definitely not in the database; no need to send request 
+    if it answers yes, the filter could be in the data base or it might not be; send request 
+                                                                    ^ false positive
+
+    if we make false positives rare, then we will be making requests only when necessary 
+
+We achieve this with hashing 
+    we will have an array of length m (m is indipendent of n, the number of items in the database)
+
+    we have k different hash functions, h_1 - h_k, which have a domain of D (the data space), and output integers from 0 to m-1 (indicies ot the array)
+
+    when adding, we set each of the results of the hash functions h1-hk to 1 in the array 
+
+    now, when we want to check if a tag is in the database, we check if the results of hashing that tag with all the hash functions are all 1   
+        if there is a 0, this item cant be in the databse, or else hashing it upon adding would have set it to 1
+        if there are no 0s, it could be that other hashings set it to 1 (False positive), but likely it is that we set all these indicies to one upon adding this tag
+            we use many hash functions helps avoid the false positive one; the false positive case is the case of a collision, essentially 
+        
+        
+with proper setting of m and k, we can get a <1% false positive rate 

@@ -1,0 +1,57 @@
+Linear Probing: Open adressing collision handling policy
+
+Backing Structure: Array (each index can only store 1 item)
+    The first index calculated is not necessarily where the key-value pair ends up 
+
+
+Core Idea: If a collision occurs at an index, increment the index by one and check again 
+    ^ incrementing by 1 is a linear function, hence linear probing 
+    Repeat until found an empty spot or u have probed enough times to cover the length of the whole backing array 
+
+    Index = (h+ogIndex) % backingArrayLength 
+        h is the number of times probed (h E [0, N]), N is backingArrayLength
+
+
+Removing/get method of a linear probing hashmap 
+    Soft removal: 
+    DEL (aka Tombstones)
+
+    Removal algo:
+        Start at the expected index 
+        If the key of the object there is not the key we are looking for, probe by 1 
+        If the keys are equal, we have located the key. 
+        We cannot removing by setting to null, because any objects that were probed further wont be accesible any more 
+
+        Instead, we mark it with DEL instead of null, so that u can continue probing 
+            ^ typically this is implemented as a boolean field of the object 
+        
+        This all prserves the probing structure so there are no nulls breaking up the probed entries 
+            ^ essentially, we only need to search the contiguous cells with entries that are not null 
+
+Adding:
+    Now, if u do an add, u can add wwhere there are DEL entries
+        U save the index of the first DEL entry, so that u can the key and value there once u have confirmed no duplicates 
+            u confirm no duplicates by continuoing to follow the probing until u get a true null or reach the capacity of the array 
+        If u do have a duplicate, update the value of the existing key with the new value 
+        If there is no saved DEL index by the time we get to null, just put it at the null index. 
+
+        
+        
+Resizing:
+    Create a new backing array of size 2N+1 (for a pseudo prime)
+    Loop through the old backing array 
+    Rehash cells to new Backing Array, adding with linear probing 
+    Skip over DEL markers 
+
+
+
+DEL marker efficency 
+    Note that because of DELs, we can have a filled array even with a reasonable load factor 
+        DELS are not entries, so they dont count towards size
+        Yet this still take up space int he array 
+    
+    This means O(n) performance for put/remove/search 
+
+    This is why we get rid of DELs whenever possible, such as when resizing 
+    We can also handle this by including DELs in the load factor calculation
+    Or proactively resizing/reconstructing if we know we are about to delete a lot 

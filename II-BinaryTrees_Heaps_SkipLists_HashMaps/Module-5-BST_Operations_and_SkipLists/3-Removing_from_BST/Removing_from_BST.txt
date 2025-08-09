@@ -1,0 +1,71 @@
+Removing:
+    traverse tree until null or you find the data u want to remove 
+
+    if null, throw exception or return null; data not in BST 
+
+    if found: remove
+        ^ this is the tricky part 
+
+        if node to remove has no children: set node to null
+            ^ the pointer from the parent must be set to null 
+
+        if the node to remove has one child, move the child up to the spot of the node 
+            ^ the pionter from the parent points to its grandchild now
+
+        if the node to remove has two chidren:
+            - we cannot simply nullify or redirect the pointers 
+
+            U can choose either the predecessor or the successor
+                - predecessor is the next smallest item (go left, then keep going right until null)
+                - successor is the next largest item (go right, then keep going left until null)
+            
+            U put the predecessor/successor in place of the node being removed, then remove the original predecessor/successor
+                the predecessor/successor is guarnateed to have 1 or no children (otherwise it wouldnt be a predecssor/successor)
+
+
+
+public int remove(int data){
+    Node dummy = new Node(-1)
+    root = rRemove(data, root, dummy)
+    return dummy.data //technically we could just avoid the dummy if all we are doing is returning its data, not the node itself
+}
+
+private Node rRemove(int data, Node curr, Node dummy){
+    if curr == null:
+        //data not found; raise exception or return none
+
+    elif data < curr.data:
+        curr.left = rRemove(data, curr.left, dummy)
+    
+    elif data > curr.data:
+        curr.right = rRemove(data, curr.right, dummy)
+
+    else:
+        //remove data 
+        dummy.data = curr.data 
+
+        if 0 children:
+            return null; 
+        
+        elif 1 child:
+            if left child:
+                return curr.left 
+            if right child:
+                return curr.right 
+        
+        elif 2 children:
+            Node dummy2 = newNode(-1)
+            curr.right = removeSuccessor(curr.right, dummy2)
+            curr.data = dummy2.data 
+
+        
+    return curr
+}
+
+private Node removeSuccessor(Node curr, Node dummy){
+    if (curr.left) == null:
+        dummy.data = curr.data 
+        return curr.right //user pointer reinforcement here; the case of 0/1 children works fine here either way
+    curr.left = removeSuccessor(curr.left, dummy)
+    return curr
+}

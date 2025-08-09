@@ -1,0 +1,19 @@
+Selection sort 
+    - another iterative sort algo 
+    - searches and finds the max element in the array, then swaps it with last so its in right place
+        ^ other implementations take min instead 
+
+def SelectionSort(array){
+    for n = arrayLength-1 to 1:
+        maxIndex = 0
+        for i from 0 to n:
+            maxIndex = i if array[i] > array[maxIndex] else maxIndex
+
+        swapIndexes(n, maxIndex)
+}
+
+Selection Sort Analysis:
+    O(n^2) in best/worst/average case (no optimizations)
+    Not Stable (blind swaps with last element; we move the last element no matter what and could be moving it out of og order for same-value objects)
+    Not Adaptive (doesnt detect if array is sorted)
+    In place

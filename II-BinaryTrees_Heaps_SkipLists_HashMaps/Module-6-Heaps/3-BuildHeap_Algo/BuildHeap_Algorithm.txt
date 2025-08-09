@@ -1,0 +1,38 @@
+Goal:
+    - given an unsorted unordered array, construct a heap from the input 
+
+Naively, we can just build it by adding the elements one by one, but this is O(nlogn)
+
+We can do better in O(n) with BUildHeap 
+
+Validity of Downheap
+    - u can downheap if the two children are valid subheaps
+
+
+Buildheap Algo:
+    Handle Shape property
+        - Place all the data into the heap in the currect structure - we will handle order later 
+            (basically put the given input array into the backing array)
+
+    Handle Order Property  
+        - a heap of size one is always a valid subheap 
+        - so, we start at the bottom and downheap every element, working our way up so that the children are always valid subheaps
+            ^ note we are actually starting one level up from the bottom; the bottom layer doesnt need downheaping
+            as such, we start the process at index size//2 (the parent of the last leaf node); the last element with a child 
+        - after we down heap, we decrease the index by 1 and repeat until we get to index 0
+
+
+Complexity:
+    It seams, based on this algo, that we are doing a logn operation (downheap) n/2 times => should be nlogn right?
+
+    we have an exponential growth in the number of nodes at each level of the tree (2^n)
+    for downheap, here is a linear increase in the cost for each subsequent level 
+
+    most of the data at the bottom is O(1) for dowheap;  a very small amount of data at the top is O(logn)
+    together this makes O(n) cost
+
+    This is a very wishy washy approach; formal proofs exist that we dont cover
+    Buildheap is both theorticall and practically better than the naive approach 
+
+
+    Build heap is both O(n) and Omega(n), making it Theta(n)

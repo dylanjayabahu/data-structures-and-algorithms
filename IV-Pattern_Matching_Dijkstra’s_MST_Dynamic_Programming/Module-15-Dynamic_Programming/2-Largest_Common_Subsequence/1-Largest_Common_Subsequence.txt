@@ -1,0 +1,55 @@
+Subsequence: chars that occur in a string in the same relative order (non necessarily contiguous)
+Substring: chars that occur in the string in same relative order and are contiguous 
+    substrings are special case of subsequence
+
+Note that the empty string is technically a substring (and hence a subsequence)
+
+
+
+Find LCS:
+
+    Brute Force Algo: compare every subsequence of A with every subsequence of B 
+        2^n subsequences for a string of length n => this is a hideous solution
+
+    
+    DP Approach: store the LCS for the substrings, then try and build on it by adding more chars at the end 
+
+        DP LCS algo (A, B):
+            m, n = len(A), len(B)
+            L = array of n+1 x m+1 #n+1 rows, m+1 cols
+
+            // L[i][j] stores the LCS of A[:i] and B[:j]
+
+            // the LCS of a string and an empty string is 0, so we set the first row/col to 0
+            L[0][i] = 0 for i in range(m+1) // set first row to have 0s
+            L[i][0] = 0 for i in range(n+1) // set first col to have 0s
+
+
+            // we start at i=1, j=1 and fill the grid 
+            for i = 1 to m:
+                for j = 1 to n:
+
+                    //if match, increase LCS by 1
+                    if A[i] == B[j]:
+                        L[i][j] = L[i-1][j-1] + 1 //1 more than the value above-left
+                    
+                    //if no match, choose the higher LCS of A[:i-1], B[:j] or A[:i], B[:j-1]
+                    else:
+                        L[i][j] = max(L[i-1][j], L[i][j-1]) //if tie, take from left (needed to traceback and find what the LCS was)
+                                //   ^ above.   ^left
+
+                        
+            
+            // when array is filled,  L[m][n] is the length of LCS 
+            // to find LCS start at L[m][n] and retrace ur steps until u hit a val that came from diagaonal (e.g. a match, in which case u add it to the LCS)
+
+
+
+LCS applications:
+    - version control for git or google docs 
+    - protect privacy of patients when patient data used in research (private search)
+    - DNA sequencing 
+
+            
+
+

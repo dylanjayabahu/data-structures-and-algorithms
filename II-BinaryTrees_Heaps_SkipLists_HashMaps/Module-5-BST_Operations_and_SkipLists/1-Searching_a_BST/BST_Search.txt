@@ -1,0 +1,46 @@
+O(n) for searching with linear data structures. 
+
+BSTs optimize for searching 
+
+
+Binary Search:
+    O(logn)
+
+    list must be sorted
+    
+    Search(val, list){
+        if length(list) == 0:
+            not found in list 
+
+
+        medianIndex = length(list)/2 
+        if val < list[medianIndex]:
+            return search(list[:medianIndex])
+        elif val > list[medianIndex]:
+            return search(list[medianIndex:])
+        else:
+            return medianIndex //found data
+    }
+
+
+With BSTs, we use the roots of subtrees instead of median 
+
+    SearchBST(val, root){
+        if root == null:
+            data not in BST
+
+
+        if val > root.data:
+            SearchBST(root.right)
+        elif val < root.data:
+            SearchBST(root.left)
+
+        elif val == root.data:
+            Found data
+
+    }
+
+
+    average is still O(logn)
+
+    but worst is O(n) in the case of a degenerate tree 

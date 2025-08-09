@@ -1,0 +1,20 @@
+Levelorder Traversal 
+    
+    levelorder():
+        make queue 
+        add root to queue 
+
+        while queue not empty:
+            Node curr = dequeue()
+
+            if curr is not null:
+                enqueue(curr.left)
+                enqueue(curr.right)
+
+    looks at nodes based on depth order
+        all nodes 0 away from root (the root itself)
+        then all nodes 1 level away from root
+        then all nodes 2 away and so on
+
+
+    gives a unique representatin of BST 

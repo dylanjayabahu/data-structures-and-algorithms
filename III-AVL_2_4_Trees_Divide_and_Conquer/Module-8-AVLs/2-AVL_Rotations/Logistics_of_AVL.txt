@@ -1,0 +1,50 @@
+Num rotations per add/remove:
+    Each rotation is O(1)
+
+    When we move back up the tree (unwinding the call recursion), we update the height/BF for each node (O(1))
+
+    The number of rotations must be less than or equal to O(logn) since the height is O(logn) - but it could be far less 
+
+    Adding:
+        Each add operation will trigger at most 1 rotation (a single or double rotation)
+
+        Any rotation will set the subtree back to the same height, so no other nodes on the way up will be unbalanced anymore 
+            Rotations never increase the height; only decrease or keep it the same
+            So, since the height originally increased, after rotating once, we restore balance and nothing propagates upward
+
+            We restore the balance without creating more imbalances for the ancestors
+
+
+    Removing:
+        Each remove operation could trigger up to O(logn) rotations in worst case 
+
+        In this case, the removing can cause the height reduction to propagate up. 
+        By restoring the balance, we could be creating imbalances for the ancestors, so we could be rotating all the way up the tree O(logn)
+
+
+With AVLs, since they are always balanced, searching/removing/adding all have worst case time complexity of O(logn)
+    not O(n) like with a standard BSTs
+
+Also, since height is stored in the nodes, finding height is O(1) not O(n) anymore. 
+
+
+Caveat:
+    if we wanted to do some other non-standard operation (e.g. removing all leaves), it could be done in O(n) with a BST 
+    but an AVL would want to rotate as it removes to maintain balance at the end of each operation  
+        making it harder to implement and could worsted time complexity
+
+
+
+AVLs vs Red-Black:
+    The worst case height for AVL is 1.44logn, while for red-black it is 2logn 
+    Inother words, the balancing of Red Black tree is loser than AVL
+
+    AVL trees store height, BF, etc. while Red Black trees just store 1 bit (the color; red/black), so the slightly edge out in terms of memory 
+
+    Red black trees are better for general purpose, so they are more commonly implemented, but the differences arent significant in terms of performance cost 
+
+Note that splay trees BST that self-adjusts. 
+
+(2-4) trees,coveredin next module, are trees but not binary trees. 
+
+

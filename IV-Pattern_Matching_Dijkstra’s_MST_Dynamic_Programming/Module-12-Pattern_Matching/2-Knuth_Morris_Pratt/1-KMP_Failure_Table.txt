@@ -1,0 +1,58 @@
+KMP is well suited for text/pattern with similar alphabet and repitition of characters
+
+Preprocess by creating a failure table: an integer array of length m 
+
+    let f be the failure table 
+    f[i] is the length of the longest proper prefix of pattern[:i] that is also a proper suffix of pattern[:i]
+        a proper suffix is a suffix that isnt the whole string 
+    
+    f[0] = 0, since the largest proper suffix of a single-char string is 0
+
+    e.g. r e v a r a r e v 
+         0 0 0 0 1 0 1 2 3 
+
+failure table algorithm
+    f is the failure table 
+    i is the prefix index 
+    j is the query index 
+
+
+def failureTable(pattern){
+    m = pattern.length
+    f = new int[m]
+    f[0] = 0
+    i = 0 
+    j = 1
+
+    while j < m:
+        if p[i] == p[j]: //continued prefix/suffix match 
+            f[j] = i+1
+            i++
+            j++
+
+
+        elif p[i] != p[j] and i==0: //no preffix sufix match at all
+            f[j] = 0
+            j++
+        
+
+        else: //could be a prefix suffix match of lower length - check for that 
+            i=f[i-1]
+
+    return f
+}
+
+oh my days this took my like 8 yrs to understand
+
+time complexity of making failure table 
+    algorithm stops when j = m 
+        j only moves forward, or stays the same (never moves backwards)
+        
+        O(m) if j only moves forward.
+
+        j stays same if an only if i moves back 
+            i moves back until it reaches 0 
+            so i moves back at most m times 
+            so j stays in place at most m times 
+    
+        therefore: m moves forward + m staying still = 2m = O(m)

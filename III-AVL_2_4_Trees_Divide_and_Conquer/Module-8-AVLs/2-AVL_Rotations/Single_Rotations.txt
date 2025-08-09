@@ -1,0 +1,80 @@
+Rotations allow for AVLs to be self balancing 
+
+- U can rotate either left or right; rotate left if right-heavy and vice versa
+
+
+
+
+
+Left Rotation:
+    A 
+  /    \
+ T1     B   
+       /  \
+      T2   C 
+          /  \
+         T3  T4
+
+^ A is right heavy; BF is -2. Assume all trees (Tn) are balanced. B.BF=-1 (or 0). Perform a left rotation:
+
+
+      B 
+    /    \
+   A      C 
+  / \    /  \
+T1  T2  T3  T4
+
+Algorithm:
+
+def leftRotation(Node A)
+    B = A.right 
+    A.right = B.left 
+    B.left = A 
+
+    Update height,BF of A
+    Update height,BF of B 
+
+    return B (b is the new root) //pointer reinforcement
+
+
+
+
+Right Rotation is the same thing but mirrored
+
+         A 
+       /   \
+      B    T14
+     / \ 
+    C  T3
+   / \
+  T1  T2
+
+  ^ A = left heavy. A.BF = 2. B.BF = 1 (or 0). Perform a right rotation.
+
+         B 
+      /     \
+     C       A 
+   /  \     /  \
+  T1  T2   T3  T4
+
+
+
+def rightRotation(Node a){
+  B = A.left
+  A.left = B.right 
+  B.right = A 
+
+  Update Height,BF of A 
+  Update Height,BF of B
+
+  return B
+}
+
+
+
+Remove Algo:
+    Search the tree as usual till u find ur desired remove item 
+    Remove it with 0/1/2 child case, as before 
+        Note that with predecessor/successor, u may have to update/rebalance on the way back up the tree from the predecessor
+    Update the parent's height/BF 
+    If BF == 2: leftRotate; if BF == -2: right rotate

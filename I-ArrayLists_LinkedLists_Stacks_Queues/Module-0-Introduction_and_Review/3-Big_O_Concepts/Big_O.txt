@@ -1,0 +1,29 @@
+ Time/space complexity - limiting behaviour notated with BigO
+ used to analyze efficiency
+    measure both time and space efficiency
+    independent of hardware/software envs; algo is studied at high level
+    peformance scales in relation to input size
+we are qunatifying the complexity of the algo as a function of the input size
+
+define primitive operations (low level instructions; execution in constant time)
+f(n) is a function given an input of size n
+
+worst case, best case, average case
+we want the most accurate worst case analysis for BigO
+
+O(f(n)) = upper bound of f(n); worst case performance
+    tightest/most accurate upper bound (e.g. everything could be O(n!) but thats not useful)
+o(f(n)) = significantly upper bounded by f(n); grows **strictly** slower than this f(n)
+big-omega(f(n)) = lower bound of f(n); best case performance
+big-theta(f(b)) = tight bound; used when O(f(n)) == Omega(f(n)) --not all algos have big theta since not all Omega(f(n)) = O(f(n))
+
+
+we tend to focus more on time complexity over space complexity; assume time complexity if not otherwise indicated
+
+
+
+Conventions:
+    drop constant factors (constant factors grow insiginficantly as n goes to infinity)
+    low any lower order terms (fastest growing term dominates as n goes to infinity)
+in practice we do take these into account - they do have an effect
+

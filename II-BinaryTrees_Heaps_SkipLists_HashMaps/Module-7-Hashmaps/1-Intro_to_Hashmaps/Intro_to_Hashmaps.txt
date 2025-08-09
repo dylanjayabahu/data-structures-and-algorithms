@@ -1,0 +1,78 @@
+Map ADT:
+    - collections of key-value pairs: <key, value>
+    - searchable
+    - unordered (when using hashing)
+
+
+Keys: 
+    - must all be unique; they idenfify the entries 
+    - no two entries can have the same key
+    - u cannot go into an entry and change the key
+        keys are immutable 
+
+Values;
+    - dont have to be unique 
+    - can be changed 
+    - duplicate values allowed 
+    - can be mutable or immmutable
+
+Maps are also called Dictionaries (like in python)
+
+
+E.g. phone numbers and names; phone numbers are the key, name is the value 
+
+
+
+
+Methods:
+    V put (<K, V>) //puts value V in with key K, or updates the value if K is already a key
+        returns the old value if replaced, otherwise null 
+    
+    V get (K) returns the value V associated with the key K 
+
+    V remove(K) removes the key value pair with key K from the hashmap and returns the value 
+
+    Size: the number of entries in the map, n
+
+    Capacity: the length of the backing array, N 
+
+    Set<K> keySet() returns the set of keys
+
+    List<V> values() returns a list of the values of the map 
+    
+
+
+Use of Hashmaps:
+    - we want to be able to search in O(1) 
+    - arrays allow us to access in O(1), but thats if we know the index 
+
+Hashmaps and Hashtables in java are two different things (hashtable is legacy, typically avoided)
+
+Hashmaps
+    Backing Structure is an array of map entries for O(1) access
+        The backing array is aka the backing table 
+        Prime numbers chosen for the length of the array since they limit collisions during compression
+    Hash Function
+        Turns the key object into an integer value (the hashcode)
+        Allows for mapping of the hashcode to an integer in the backing array 
+
+        If A = B, then hash(A) = hash(B)
+        BUT if hash(A) = hash(B), we cannot conclude that A = B necessarily
+
+    Compression 
+        Once we have the hashcode, we compress them in some way so the integers can fit as indices of the backing array 
+        hashcode % CAPACITY will do this for us 
+         ^ compression function 
+
+    Collision:
+        when after hashing and compressing, we get the same index as another entry 
+            (that is, something already occupies the index of the backing array)
+
+        collisions are unnavoidable in practice - we have limited memory for the backing array 
+
+        but we can try to minimize collisions
+            - resize to a larger table: newcap= = 2*oldcap +1
+            - resize when max load factor is hit 
+                load factor  = size/capacityh = n/N
+                Typical max load factor is 0.6-0.7
+            - use prime numbers for capacity; nonprimes will mean more collisions for patterns in the data

@@ -1,0 +1,28 @@
+Collision Handling Policies
+    - Closed Addressing: all keys that collide in a location are stored in that location by some means
+    - Open Addressing: additional colliding keys are stored in a diff location based on the original location
+
+
+External Chaning:
+    - closed adressing 
+
+    Backing structure is an array of linked lists; each index can store many entries in a small linked list 
+
+    Entries are put in the exact index calculated
+        Note that u store the key and the value at the index (so u can get both the keys and values)
+        The index contains the head of the linked list 
+
+    When inserting with a collision, u add to the front of the linked list (O(1))
+        Some implementations have u add to the back of the linked list (O(1))
+        Either way we have to search the chain to avoid duplicates, so O(n)
+
+    We dont run out of space in this way, but long chains impact runtime 
+        So we still resize periodically
+
+
+    Resizing:
+        U must iterate through each index, as well as through the linked list at each index
+            for each entry at each index:
+                calculate where to put the entry int he resized array (key.hashcode() % new_array_length)   
+                put it there (by using the same collision handling if needed, dont just overwrite)
+                no need to search for duplicates - each operation is O(1) for a total of O(n) for the whole resize

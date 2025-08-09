@@ -1,0 +1,57 @@
+Preorder Traversal
+
+    preorder(Node node){
+        if (node != null){
+            look at data in node //record, print, do whatever u need with it 
+            preorder(node.left)
+            preorder(node.right)
+        }
+    }
+
+    adding all the data in the order retrieved with this traversal to a new BST will preserve the structure 
+    preorder traversal uniquely defines the structure of the bst 
+
+
+    ^ basically, u look at the data before u search left/right (hence PREorder traversal)
+        CLR 
+
+
+
+Postorder Traversal 
+
+    postorder(Node node){
+        if (node != null){
+            postorder(node.left)
+            postorder(node.right)
+            look at data in node //record, print, do whatever u need with it 
+        }
+    }
+
+    useful in situations when we remove data; we typically remove from the leaves 
+    just like with preorder, postorder traversal uniquely defines the structure of the bst 
+
+
+    ^ basically, u look at the data after u search left/right (hence POSTorder traversal)
+        LRC
+
+
+
+
+Inorder Traversal 
+
+    inorder(Node node){
+        if (node != null){
+            inorder(node.left)
+            look at data in node //record, print, do whatever u need with it 
+            inorder(node.right)
+            
+        }
+    }
+
+    with this, the order that we look at the data is always in sorted order 
+    does not uniquely identify the bst 
+
+
+    ^ basically, u look at the data in between seraching left/searching right u search left/right (hence INorder traversal)
+        LCR 
+

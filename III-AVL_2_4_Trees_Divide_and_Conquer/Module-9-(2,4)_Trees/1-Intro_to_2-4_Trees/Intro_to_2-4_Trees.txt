@@ -1,0 +1,67 @@
+(2,4) Trees, aka 2-3-4 trees
+    - Allow multiple data to be stored in sorted order in a node => anywhere from 1-3 data 
+    - Special case of multiway search trees 
+        trees that allow many data to be stored per node in generality 
+
+        Just as binary trees contain 1 data (e.g. x1), and can have 2 children (d<x1 OR x1<d), this generalizes:
+
+        If we have data x1 < x2 < x3 < x4 ..  < xm, there are m+1 children: (a node with m data values will have m children)
+            -d<x1
+            -x1<d<x2
+            -x2<d<x3
+            -x3<d<x4
+            ...
+            -x4<d
+
+        Since each node in the tree can have 1, 2, or 3 values, the number of nodes can be 2,3 or 4 => hence the (2,4) name
+
+        B-trees: Multiway search trees that enforce a strict balancing scheme
+            (2,4) trees are a type of B-tree; the B is the number nodes allowed (in this case B=4)
+        
+
+Node Structure:
+    dn is the nth data
+    cn is the nth child
+    a node with n children is an n-node (e.g. a 2-node)
+    nodes can have up to 3 data
+
+Order Property:
+    c1 < d1 < c2 < d2 < c3 < d3 < c4 (with fewer data the same applies)
+
+    [d1, d2, d3]
+    /   |   |   \
+   c1  c2   c3   c4
+
+
+Shape Property: 
+    All leaves must have the same depth 
+    Guarantess O(logn)
+
+Property Priority: 
+    1. Shape
+    2. Order
+    3. Node
+
+
+Recall that with BSTs, we cannot always maintain perfect balancing of heights (n must be of the form 2^k - 1)
+With (2,4) trees we can accomplish this since more than 1 data can be in each node and nodes can have varying numbers of children
+
+
+Searching in a 2,4 tree:
+    same principle as searching a bst: find which "area" the data would fall in and proceed to that node
+
+
+B-Trees:
+    a (2,4) tree is a B-tree of order 4
+
+    the higher the order of the tree, the lower the height, but the longer the sorted list within the node
+
+    B=4 provides a nice comprimise between being able to perfectly balance the tree in terms of height 
+
+
+
+    Databases: 
+        large databses cant be fit in ram; must be stored to disk 
+        Disk access is slower than RAM 
+        Reading from a disk grabs a whole block of memory, not just an item 
+        B-trees naturally order heirarchically into blocks, making them good for databases 

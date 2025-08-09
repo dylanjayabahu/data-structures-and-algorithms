@@ -1,0 +1,31 @@
+Doubly Linked List (DLL) is basically SLL but with a previous reference in addition to a next reference
+- allows for backward traversals 
+
+
+- the prev reference of the head is null, just as the next reference of the tail is null 
+
+- need to be careful since there are now 2 pointers for each node that we need to keep track of 
+
+
+Adding to front:
+    - make a new node with require data and null prev/next pointers 
+    - set the next pointer to point to the current head 
+    - set the current head's prev pointer from null to point to the new node 
+    - make the new node the head 
+
+
+Adding to the back: 
+    - make a new node with require data and null prev/next pointers 
+    - set the new nodes prev pointer to point to the current tail 
+    - set the current tail's next pointer to point to the new node 
+    - make the new node the tail 
+
+
+Removing form back (can be done in O(1) now)
+    - set the tail to be the second last element
+    - set next pointer of the new tail to be null 
+    - the old last element is no longer accessible and will be garbage collected 
+^ removing from front is same idea 
+
+    Edege case: removing from list of size 1:
+        - head and tail will both need to point to null; the single node is now garbage collected 

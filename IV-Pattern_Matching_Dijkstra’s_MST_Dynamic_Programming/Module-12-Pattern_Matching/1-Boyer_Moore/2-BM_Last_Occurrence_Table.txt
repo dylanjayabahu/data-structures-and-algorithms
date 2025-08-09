@@ -1,0 +1,26 @@
+Note that this is technically the Simplified Boyer Moore algo 
+    - completely skips past characters not in the pattern; bad character rule
+    - there is also the good suffix rule, which isnt that helpful in terms of performance and also much more complex - often not implemented (hence simplified)
+
+BM preprocesses the pattern but not the text 
+
+Last occurence table 
+    - records the index of the last occurence of the letter for every letter in the alphabet (in the pattern)
+    - store as a hashmap <letter, index>
+    - letters not in the pattern have an index of -1 
+        we dont actually store this -1 in the table, we just use it if the letter isnt in the hashmap keys
+        hashmaps have a getOrDefault() method which allows us to do this easily
+
+
+BM algo:
+
+def BMLastTable(pattern){
+    m = pattern.length 
+    last = new Hashmap<character, index>
+    for i in range(m):
+        last.put(pattern[i], i) //overwrites any previous occurences so only the last one is stored
+    
+    return last
+}
+
+O(m) in best/average/worst case 

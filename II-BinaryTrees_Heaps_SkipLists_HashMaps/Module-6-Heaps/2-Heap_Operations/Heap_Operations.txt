@@ -1,0 +1,33 @@
+We only consider add and remove for heaps (no searching)
+    - both can be done in O(logn)
+    - must preserve the shape and order property as we do this 
+        - shape (completeness) is harder to preserve than order (children > parent), so we do that first 
+
+add
+    - Add the element to the next available spot in the tree (add to the end of the array)
+        ^ this maintains completeness 
+    - Up-heap starting from the new data to fix order property 
+        - do a bubble sort like swapping until the new element added bubbles up to its right place in the tree 
+            - this is O(logn) - we only go through 1 branch of the tree once
+            - called heapify 
+
+            Compare child to parent. If order violated, swap. Repeat until order not violated or at root
+
+remove 
+    - remove from the root (store the data so it isnt lost)
+    - move last element of the heap to the root position (delete the data in the last element)
+    - Down heap 
+        - Compare parent to child with higher priority (e.g. larger one). 
+            if only 1 child, compare with that 
+        - If that violates order, swap with that child. 
+        - Repeat until u get to a leaf (no children) or order isnt violated 
+    
+
+
+Other operations:
+    - Union (take two heaps and merge them into one big heap)
+    - Increase Priority (increase the priority of an element; hard cuz we have to find that element, taking O(n))
+
+    ^ binary heap isnt best supported for these; other heaps like binomial heaps and fibonacci heaps
+    - Fibonacci heaps are particularly remarkable with ammortized O(1) for adding, union, and increase priority are all O(1)
+        But not rlly practical b/c high overhead costs 

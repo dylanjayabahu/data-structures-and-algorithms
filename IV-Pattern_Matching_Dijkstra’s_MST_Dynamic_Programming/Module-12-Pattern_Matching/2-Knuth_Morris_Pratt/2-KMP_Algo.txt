@@ -1,0 +1,74 @@
+Comparison of BM vs KMP 
+    - Upon mismatch 
+        BM queries for mismatched text character in last occurence table 
+        KMP queries for patternIndex in failure table 
+    
+    - Comparsion order
+        BM compares right to left 
+        KMP compares left to right 
+
+    - Realignment
+        BM: causes mismatched character to now match
+        KMP: causes all chars before mismatch to still match 
+
+
+KMP algorithm 
+    j is the pattern index 
+
+    k is the text index 
+
+    f is the failure table 
+
+
+def KMP(pattern, t){
+    m = pattern.length
+    n = text.length
+
+    f = failureTable(p)
+
+    j = 0
+    k = 0 
+
+    while (k < n):
+        if pattern[j] == text[k]: //continuing match; case 1
+            if j == m-1:
+                return k or add k to outputList //found case depending on single/all occurences 
+                k += f[-1] //needed if we are finding all occurences
+                j = f[j-1] //update j just as if we had found a mismatch in case 3; note that j=m, so f[j-1] = f[m-1] = f[-1]
+                //essentially we are realligning directly to the longest prefix/suffix match right away 
+            else:
+                j++
+                k++
+            
+    
+        else: //mismatch case 
+            if j == 0: //case 2
+                k++ 
+            else: //case 3
+                //the text was aligned with the pattern up to j. 
+                //so a suffix in the text is like a suffix in the pattern 
+                //we want to realign the prefix in the pattern with a suffix in the text - which is exactly what the failure table lets us do
+                j = f[j-1] 
+
+}
+
+
+
+Complexity analysis:
+    Worst Case: O(m + n)
+        O(m) to make failure table 
+        O(n) to iterate through 
+            ^ this is the same argument as why it is O(m) to make failure table. There are 2n comparisons at worst 
+    
+    Best Case O(m + n) //same 
+
+    So KMP is Theta(m+n) for all occurences
+
+
+    Best case of single occurence is O(m)
+
+
+    Note that this asymptotic analysis is not necessarily representative of real world 
+        BM will often perform better in english like text because it can skip large mismatches quickly; BM's worst case only comes up if very unlucky 
+        KMP, although guaranteeing better worst case performance, isnt necessarily better 
+        BM is the industry standard for this reason, of many other reasons

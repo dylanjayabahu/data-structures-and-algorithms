@@ -1,0 +1,81 @@
+Tree: acyclic connected graph 
+Spanning Tree: a subgraph that is a tree, connects every vertex in the og graph 
+    Subgraph: a graph whose edges are a subset of OGGraph.edges and whose vertices are a subset of OGGraph.vertices
+Minimum Spanning Tree (MST): spanning tree that makes the sum of weights as small as possible 
+    there can be multuple MSTs with the same sum of weights
+    u cant find an MST if the graph is disconnected
+Minimum Spanning Forest (MSF): a collection of MSTs, used if the graph is disconnected   
+    -> one MST for each connected part of the graph
+
+
+Graph Cut:
+    a subgraph that cuts all the edges connecting the subset to the rest of the graph 
+    only edges that connect nodes of the within subgraph are included
+
+    any MST must include the minimum edge (of all the ones we cut) to connect any two Graph cuts
+        that is, pick a graph cut. You will have cut k edges. Then readd the edge that is the smallest of the k. 
+        This must be true for any graph cut picked in an MST
+
+
+
+Prims ALgo 
+    Greedy Algo 
+    Focuses on Connected Graphs 
+    Builds the MST one vertex at a time 
+    Similar to Dijkstra b/c it finds the shortest past from one vertex to its adjacent vertices (not necessarily through the edge connecting them)
+
+
+    Main Ideas:
+        - visitedSet tracks where we have been 
+        - priorityQueue holds edges with minimum distance 
+        - the next edge in PQ is the shortest path found in the new graph cut 
+        - edges of minimum weight are stored - these are the edges to include in the final MST 
+    
+    Requirements:
+        - PQ (priority Queue)
+        - VS (Visited Set)
+        - MST Edge Set 
+        - Source Node 
+
+
+def primsAlgo (SourceNode s, Graph graph){
+    VS = {}
+    PQ = []
+    MSTEdges = {}
+
+    for edge=(s, v) in G: //add any edges incident on s
+        PQ.enqueue(edge) 
+    
+    VS.add(s)
+
+    while (PQ nonempty and VS not full){
+        edge(u, w) = PQ.dequeue(); //choose smallest edgeweight next
+
+        if (w not in VS){
+            VS.add(w)
+            MSTEdges.add(edge(u,w))
+
+            for edge=(w, x) in G: //add any edges incident on w
+                if x not in VS: PQ.enqueue(edge)
+        }
+
+    }
+
+    return MSTEdges{} //if VS not full after PQ gets emptied, then an MST is not possible (disconnected graph)
+}
+
+
+Efficiency:
+    The implementation above (with adding duplicates to PQ instead of updating) 
+        Big O is O(|E|log|E|)
+
+    If we implement decreaseKey() so that we can just update values of PQ without duplicates, it becomes
+        O((|V| + |E|)log|V|) 
+
+    ^ just as with dijkstras
+
+
+Connection to graph cuts:
+    In Prims algo, we are basically creating a graph cut between visited and unvisited nodes 
+        by dequeuing from the PQ we retreive the lowest weighted edge that connects the two cuts 
+    

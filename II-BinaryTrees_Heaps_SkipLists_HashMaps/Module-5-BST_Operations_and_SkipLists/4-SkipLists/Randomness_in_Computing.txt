@@ -1,0 +1,14 @@
+Random Number Generator (RNG) - generates truly random numbers
+Pseudo Random Number Generator (PRNG) 
+    - generates number in a deterministic way that appears random
+    - based on a seed 
+    - this is typically what is used when u call an RNG in many languages 
+
+
+Usefullness of Randomness:
+    - Many problems have simple/elegant random solutions with no deterministic counterpart 
+        e.g testing primality; many random tests existed but hard to find deterministic one
+
+    - it remains an open problem for whether or not randomness improves the power of computing 
+        we have several problems for which it seems randomness is key to the solution, 
+        but it could be that we just havent found the right deterministic solution 

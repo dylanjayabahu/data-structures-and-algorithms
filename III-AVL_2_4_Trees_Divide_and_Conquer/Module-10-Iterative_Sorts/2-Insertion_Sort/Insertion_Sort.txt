@@ -1,0 +1,22 @@
+Insertion Sort: another iterative sort algo
+    - Assumes the elements before are sorted, and inserts this element among the previous sorted elements 
+
+
+def insertionSort(array){
+
+    for n = 1 up to array.length-1{
+        set i to be behind the presorted array (i = n)
+
+        while (i > 0 and array[i]<array[i-1]){
+            swap i, i-1
+            i--;
+        }
+    }
+
+}
+
+
+Insertion Sort Analysis:
+    Best case: O(n)
+    Average and worst case: O(n^2)
+    Stable, adaptive (by design - no optimizations needed), and in place
