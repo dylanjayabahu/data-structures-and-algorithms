@@ -22,7 +22,7 @@ This professional certificate series covers fundamental and advanced data struct
    Delves into self-balancing trees (AVLs, 2-4 Trees) and iterative and divide & conquer sorting algorithms (Bubble, Cocktail Shaker, Selection, Merge, Quick, Radix Sort). 
 
 4. **[Data Structures & Algorithms IV: Pattern Matching, Dijkstra’s, MST, and Dynamic Programming Algorithms](https://www.edx.org/learn/data-structures/the-georgia-institute-of-technology-data-structures-algorithms-iv-pattern-matching-dijkstras-mst-and-dynamic-programming-algorithms)**  
-   Focuses on pattern matching (Boyer-Moore, KMP, Rabin-Karp), graph algorithms (DFS, BFS, Dijkstra’s, MST), and dynamic programming (largest common subsequence). 
+   Focuses on pattern matching (Boyer-Moore, KMP, Rabin-Karp), graph algorithms (DFS, BFS, Dijkstra’s, MST), and dynamic programming. 
 
 ---
 
